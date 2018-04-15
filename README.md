@@ -19,14 +19,12 @@ Code for saving images from csv file
   
 ## How to run
 There are two options:
-1. Realtime emotion detection, for this run<br>
+1. Realtime emotion detection, for this run:<br>
 ```python main.py emo_realtime```<br>
-2. Emotion detection using image path, for this<br>
+2. Emotion detection using image path, for this run:<br>
 ```python main.py emo_path --path <image path>```
-  <br>
-   e.g: ```python main.py emo_path --path saved_images/2.jpg```
-  <br>
-If you don't want to specify path then just save the image as **"1.jpg"** inside **saved_images** folder<br>
+  <br>e.g: ```python main.py emo_path --path saved_images/2.jpg```
+  <br><br>If you don't want to specify path then just save the image as **"1.jpg"** inside **saved_images** folder<br> and run:
   ```python main.py emo_path```
 
 ## Credits
