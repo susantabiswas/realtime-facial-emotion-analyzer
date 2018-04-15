@@ -20,7 +20,7 @@ def main():
     # parse the args
     args = parser.parse_args()
 
-    print('****ARGS: ' + str(args))
+    #print('****ARGS: ' + str(args))
 
     if args.func_name == "emo_realtime":
         run_realtime_emotion()
