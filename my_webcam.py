@@ -12,6 +12,7 @@ def resize_img(image_path):
     #cv2.imwrite(image_path, img)
     return img
 
+
 # load keras model
 our_model = load_model('models/model.h5')
 print('model loaded')
@@ -27,6 +28,9 @@ for index, emotion in enumerate(EMOTIONS):
     feelings_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
 
 video_capture = cv2.VideoCapture(0)
+video_capture.set(3, 640)  # WIDTH
+video_capture.set(4, 480)  # HEIGHT
+
 prev_time = time.time()
 
 while True:
@@ -53,8 +57,9 @@ while True:
 
         # save the detected face
         cv2.imwrite(save_loc, roi_color)
-        #print('reached' + str(f))
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        # draw a rectangle bounding the face
+        cv2.rectangle(frame, (x-10, y-70),
+                        (x+w+20, y+h+40), (15, 175, 61), 4)
         # keeps track of waiting time for face recognition
         curr_time = time.time()
 
@@ -78,14 +83,26 @@ while True:
 
         if once==True:
             sum = np.sum(result[0])
+            emoji_face = feelings_faces[np.argmax(result[0])]
             for index, emotion in enumerate(EMOTIONS):
-                text = emotion + " : " +str(round(Decimal(result[0][index]/sum*100),2)) + "%"
-                cv2.putText(frame, text, (10, index * 20 + 20), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0,0), 1)
-                #cv2.rectangle(frame, (10,10),(100,100),(255,182,193), -1)
-                emoji_face = feelings_faces[np.argmax(result[0])]
-
+                text = str(round(Decimal(result[0][index]/sum*100), 2)) + "%"
+                # for drawing progress bar
+                cv2.rectangle(frame, (100, index * 20 + 10), (100 +int(result[0][index] * 100), (index + 1) * 20 + 4),
+                                 (255, 0, 0), -1)
+                # for putting emotion labels
+                cv2.putText(frame, emotion, (10, index * 20 + 20),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+                # for putting percentage confidence
+                cv2.putText(frame, text, (105 + int(result[0][index] * 100), index * 20 + 20),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+                
+                
+            # overlay emoji on the frame for all the channels
             for c in range(0, 3):
-                frame[200:320, 10:130, c] = emoji_face[:, :, c] *(emoji_face[:, :, 3] / 255.0) + frame[200:320, 10:130, c] *(1.0 - emoji_face[:, :, 3] / 255.0)
+                # for doing overlay we need to assign weights to both foreground and background
+                foreground = emoji_face[:, :, c] * (emoji_face[:, :, 3] / 255.0)
+                background = frame[350:470, 10:130, c] * (1.0 - emoji_face[:, :, 3] / 255.0)
+                frame[350:470, 10:130, c] = foreground + background
         break
 
     # Display the resulting frame
