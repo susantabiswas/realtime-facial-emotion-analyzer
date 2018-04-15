@@ -16,7 +16,8 @@ our_model = load_model('models/model.h5')
 print('model loaded')
 
 save_loc = 'saved_images/1.jpg'
-
+result = np.array((1,7))
+once = False
 faceCascade = cv2.CascadeClassifier(r'haarcascades/haarcascade_frontalface_default.xml')
 EMOTIONS = ['angry', 'disgusted', 'fearful', 'happy', 'sad', 'surprised', 'neutral']
 
@@ -57,6 +58,7 @@ while True:
         curr_time = time.time()
 
         if curr_time - prev_time >=3:
+            once = True
             print('Entered model phase')
             img = cv2.imread(save_loc, 0)
             if img is not None:
@@ -66,19 +68,21 @@ while True:
                 #test_img = cv2.imread('save_loc')
                 #test_img = np.reshape(test_img, (1, 48,48,1))
                 img = np.reshape(img, (1, 48, 48, 1))
-                print(img.shape)
+                
                 result = our_model.predict(img)
-                print(result)
-                '''for index, emotion in enumerate(EMOTIONS):
-                    cv2.putText(frame, emotion, (10, index * 20 + 20), cv2.FONT_HERSHEY_PLAIN, 0.5, (0, 255, 0), 1)
-                    cv2.rectangle(frame, (130, index * 20 + 10), (130 + int(result[0][index] * 100), (index + 1) * 20 + 4),(255, 0, 0), -1)
-                    emoji_face = feelings_faces[np.argmax(result[0])]
-
-                for c in range(0, 3):
-                    frame[200:320, 10:130, c] = emoji_face[:, :, c] * (emoji_face[:, :, 3] / 255.0) + frame[200:320, 10:130, c] * (1.0 - emoji_face[:, :, 3] / 255.0)'''
-            # save the time when the last face recognition task was done
+                print(EMOTIONS[np.argmax(result[0])])
+                
+            #save the time when the last face recognition task was done
             prev_time = time.time()
-        
+
+        if once==True:
+            for index, emotion in enumerate(EMOTIONS):
+                cv2.putText(frame, emotion, (10, index * 20 + 20), cv2.FONT_HERSHEY_PLAIN, 0.5, (0, 255, 0), 1)
+                cv2.rectangle(frame, (130, index * 20 + 10), (130 + int(result[0][index] * 100), (index + 1) * 20 + 4),(255, 0, 0), -1)
+                emoji_face = feelings_faces[np.argmax(result[0])]
+
+            for c in range(0, 3):
+                frame[200:320, 10:130, c] = emoji_face[:, :, c] * (emoji_face[:, :, 3] / 255.0) + frame[200:320, 10:130, c] * (1.0 - emoji_face[:, :, 3] / 255.0)
         break
 
     # Display the resulting frame
