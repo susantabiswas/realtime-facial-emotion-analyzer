@@ -10,7 +10,7 @@ Model implementation was done in keras.<br>
 
 
 ## <u>Model Architecture
-![model plot](media/model_plot.png)
+<img src ='media/model_plot.png'  width="400" height="2200">
   
 ## <u>List of files
 `facial Emotions.ipynb` : 
