@@ -10,7 +10,7 @@ Model implementation was done in keras.<br>
 <img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
 
 ### Emojis used:
-<img src="emojis/happy.png"><img src="emojis/angry.png"><img src="emojis/fearful.png"><img src="emojis/sad.png"><img src="emojis/neutral.png"><img src="emojis/surprised.png"><img src="emojis/disgusted.png">
+<img src="emojis/neutral.png"> <img src="emojis/happy.png"> <img src="emojis/fearful.png"> <img src="emojis/sad.png"> <img src="emojis/angry.png"> <img src="emojis/surprised.png"> <img src="emojis/disgusted.png">
 
 ### Snapshot from Realtime emotion Analyzer
 The model prediction for the given frame was **Neutral** which is evident from the picture.<br>
