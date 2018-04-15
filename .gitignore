@@ -1,5 +1,5 @@
 output/
-.ipynb_checkpoints/
+.ipynb_checkpoints/Facial Emotions-checkpoint.ipynb
 dataset/
 cv_raw.npy
 train_raw.npy
