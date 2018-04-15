@@ -3,6 +3,7 @@ import sys
 from keras.models import load_model
 import time
 import numpy as np
+from decimal import Decimal
 
 # loads and resizes an image
 def resize_img(image_path):
@@ -57,7 +58,7 @@ while True:
         # keeps track of waiting time for face recognition
         curr_time = time.time()
 
-        if curr_time - prev_time >=3:
+        if curr_time - prev_time >=1.5:
             once = True
             print('Entered model phase')
             img = cv2.imread(save_loc, 0)
@@ -76,13 +77,15 @@ while True:
             prev_time = time.time()
 
         if once==True:
+            sum = np.sum(result[0])
             for index, emotion in enumerate(EMOTIONS):
-                cv2.putText(frame, emotion, (10, index * 20 + 20), cv2.FONT_HERSHEY_PLAIN, 0.5, (0, 255, 0), 1)
-                cv2.rectangle(frame, (130, index * 20 + 10), (130 + int(result[0][index] * 100), (index + 1) * 20 + 4),(255, 0, 0), -1)
+                text = emotion + " : " +str(round(Decimal(result[0][index]/sum*100),2)) + "%"
+                cv2.putText(frame, text, (10, index * 20 + 20), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0,0), 1)
+                #cv2.rectangle(frame, (10,10),(100,100),(255,182,193), -1)
                 emoji_face = feelings_faces[np.argmax(result[0])]
 
             for c in range(0, 3):
-                frame[200:320, 10:130, c] = emoji_face[:, :, c] * (emoji_face[:, :, 3] / 255.0) + frame[200:320, 10:130, c] * (1.0 - emoji_face[:, :, 3] / 255.0)
+                frame[200:320, 10:130, c] = emoji_face[:, :, c] *(emoji_face[:, :, 3] / 255.0) + frame[200:320, 10:130, c] *(1.0 - emoji_face[:, :, 3] / 255.0)
         break
 
     # Display the resulting frame
