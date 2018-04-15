@@ -1,12 +1,16 @@
 # Realtime Emotion Analysis from facial Expressions
 Realtime Human Emotion Analysis From facial expressions. It uses a deep Convolutional Neural Network.
-The model used achieved an accuracy of 63% on the test data.
+The model used achieved an accuracy of 63% on the test data. The realtime analyzer assigns a suitable emoji for the current emotion.
+
 Model implementation was done in keras.<br>
 
 ## Some predicted outputs:
 <img src ='media/1.JPG'  width="430" height="380"><img src ='media/2.JPG'  width="430" height="380"/>
 
 <img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
+
+### Emojis used:
+<img src="emojis/happy.png"><img src="emojis/angry.png"><img src="emojis/fearful.png"><img src="emojis/sad.png"><img src="emojis/neutral.png"><img src="emojis/surprised.png"><img src="emojis/disgusted.png">
 
 ### Snapshot from Realtime emotion Analyzer
 The model prediction for the given frame was **Neutral** which is evident from the picture.<br>
