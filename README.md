@@ -3,14 +3,14 @@ Realtime Human Emotion Analysis From facial expressions. It uses a deep Convolut
 The model used achieved an accuracy of 63% on the test data.
 Model implementation was done in keras.<br>
 
-## Some prediction outputs:
-<img src ='media/1.JPG'  width="430" height="380"><img src ='media/2.JPG'  width="430" height="380">
+## Some predicted outputs:
+<img src ='media/1.JPG'  width="430" height="380"><img src ='media/2.JPG'  width="430" height="380"/>
 
-<img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380">
+<img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
 
 
 ## <u>Model Architecture
-<img src ='media/model_plot.png'  width="400" height="2200">
+<img src ='media/model_plot.png'  width="500" height="2800">
   
 ## <u>List of files
 `facial Emotions.ipynb` : 
