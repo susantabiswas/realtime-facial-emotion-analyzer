@@ -5,3 +5,6 @@ cv_raw.npy
 train_raw.npy
 test_raw.npy
 saved_images/1.jpg
+__pycache__/model_utils.cpython-36.pyc
+__pycache__/prediction_utils.cpython-36.pyc
+__pycache__/webcam_utils.cpython-36.pyc
