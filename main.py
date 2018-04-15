@@ -15,7 +15,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("func_name", type=str,
                         help="Select a function to run. <emo_realtime> or <emo_path>")
-    parser.add_argument("--path", default="/saved_images/1.jpg", type=str,
+    parser.add_argument("--path", default="saved_images/1.jpg", type=str,
                         help="Specify the complete path where the image is saved.")
     # parse the args
     args = parser.parse_args()
