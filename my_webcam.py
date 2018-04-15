@@ -4,6 +4,7 @@ from keras.models import load_model
 import time
 import numpy as np
 from decimal import Decimal
+from model_utils import define_model, model_weights
 
 # loads and resizes an image
 def resize_img(image_path):
@@ -11,9 +12,9 @@ def resize_img(image_path):
     img = cv2.resize(img, (48, 48))
     return True
 
-
 # load keras model
-our_model = load_model('models/model.h5')
+model = define_model()
+model = model_weights(model)
 print('Model loaded')
 
 # save location for image
@@ -82,19 +83,19 @@ while True:
                 img = cv2.resize(img, (48, 48))
                 img = np.reshape(img, (1, 48, 48, 1))
                 # do prediction
-                result = our_model.predict(img)
+                result = model.predict(img)
                 print(EMOTIONS[np.argmax(result[0])])
                 
             #save the time when the last face recognition task was done
             prev_time = time.time()
 
         if once == True:
-            
+            total_sum = np.sum(result[0])
             # select the emoji face with highest confidence
             emoji_face = emoji_faces[np.argmax(result[0])]
             for index, emotion in enumerate(EMOTIONS):
                 text = str(
-                    round(Decimal(result[0][index] / np.sum(result[0])*100), 2)) + "%"
+                    round(Decimal(result[0][index]/total_sum*100), 2) ) + "%"
                 # for drawing progress bar
                 cv2.rectangle(frame, (100, index * 20 + 10), (100 +int(result[0][index] * 100), (index + 1) * 20 + 4),
                                  (255, 0, 0), -1)
