@@ -8,9 +8,12 @@ Model implementation was done in keras.<br>
 
 <img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
 
+### Snapshot from Realtime emotion Analyzer
+The model prediction for the given frame was **Neutral** which is evident from the picture.<br>
+<img src ='media/5.JPG' wdith="640" height="480"/>
 
 ## <u>Model Architecture
-<img src ='media/model_plot.png'>
+<img src ='media/model_plot.png' >
   
 ## <u>List of files
 `facial Emotions.ipynb` : 
