@@ -9,46 +9,53 @@ from decimal import Decimal
 def resize_img(image_path):
     img = cv2.imread(image_path, 1)
     img = cv2.resize(img, (48, 48))
-    #cv2.imwrite(image_path, img)
-    return img
+    return True
 
 
 # load keras model
 our_model = load_model('models/model.h5')
-print('model loaded')
+print('Model loaded')
 
+# save location for image
 save_loc = 'saved_images/1.jpg'
+# numpy matrix for stroing prediction
 result = np.array((1,7))
+# for knowing whether prediction has started or not
 once = False
+# load haar cascade for face
 faceCascade = cv2.CascadeClassifier(r'haarcascades/haarcascade_frontalface_default.xml')
+# list of given emotions
 EMOTIONS = ['angry', 'disgusted', 'fearful', 'happy', 'sad', 'surprised', 'neutral']
 
-feelings_faces = []
+# store the emoji coreesponding to different emotions
+emoji_faces = []
 for index, emotion in enumerate(EMOTIONS):
-    feelings_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
+    emoji_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
 
+# set video capture device , webcam in this case
 video_capture = cv2.VideoCapture(0)
 video_capture.set(3, 640)  # WIDTH
 video_capture.set(4, 480)  # HEIGHT
 
+# save current time
 prev_time = time.time()
 
+# start webcam feed
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
-
     # mirror the frame
     frame = cv2.flip(frame, 1, 0)
-
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    # find face in the frame
     faces = faceCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
-        flags=cv2.CASCADE_SCALE_IMAGE
-    )
+                gray,
+                scaleFactor=1.1,
+                minNeighbors=5,
+                minSize=(30, 30),
+                flags=cv2.CASCADE_SCALE_IMAGE
+            )
     
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
@@ -60,32 +67,34 @@ while True:
         # draw a rectangle bounding the face
         cv2.rectangle(frame, (x-10, y-70),
                         (x+w+20, y+h+40), (15, 175, 61), 4)
-        # keeps track of waiting time for face recognition
+        
+        # keeps track of waiting time for emotion recognition
         curr_time = time.time()
-
+        # do prediction only when the required elapsed time has passed 
         if curr_time - prev_time >=1.5:
+            # indicates that prediction has been done atleast once
             once = True
-            print('Entered model phase')
+            # read the saved image
             img = cv2.imread(save_loc, 0)
+            
             if img is not None:
-                #resize_img(save_loc)
+                # resize image for the model
                 img = cv2.resize(img, (48, 48))
-                print(img.shape)
-                #test_img = cv2.imread('save_loc')
-                #test_img = np.reshape(test_img, (1, 48,48,1))
                 img = np.reshape(img, (1, 48, 48, 1))
-                
+                # do prediction
                 result = our_model.predict(img)
                 print(EMOTIONS[np.argmax(result[0])])
                 
             #save the time when the last face recognition task was done
             prev_time = time.time()
 
-        if once==True:
-            sum = np.sum(result[0])
-            emoji_face = feelings_faces[np.argmax(result[0])]
+        if once == True:
+            
+            # select the emoji face with highest confidence
+            emoji_face = emoji_faces[np.argmax(result[0])]
             for index, emotion in enumerate(EMOTIONS):
-                text = str(round(Decimal(result[0][index]/sum*100), 2)) + "%"
+                text = str(
+                    round(Decimal(result[0][index] / np.sum(result[0])*100), 2)) + "%"
                 # for drawing progress bar
                 cv2.rectangle(frame, (100, index * 20 + 10), (100 +int(result[0][index] * 100), (index + 1) * 20 + 4),
                                  (255, 0, 0), -1)
