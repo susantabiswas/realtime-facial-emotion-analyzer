@@ -10,8 +10,8 @@ def prediction_path(path):
     model = model_weights(model)
     
     # list of given emotions
-    EMOTIONS = ['angry', 'disgusted', 'fearful',
-                'happy', 'sad', 'surprised', 'neutral']
+    EMOTIONS = ['Angry', 'Disgusted', 'Fearful',
+                'Happy', 'Sad', 'Surprised', 'Neutral']
 
     if os.path.exists(path):
         # read the image

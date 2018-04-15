@@ -28,7 +28,7 @@ def realtime_emotions():
     # load haar cascade for face
     faceCascade = cv2.CascadeClassifier(r'haarcascades/haarcascade_frontalface_default.xml')
     # list of given emotions
-    EMOTIONS = ['angry', 'disgusted', 'fearful', 'happy', 'sad', 'surprised', 'neutral']
+    EMOTIONS = ['Angry', 'Disgusted', 'Fearful', 'Happy', 'Sad', 'Surprised', 'Neutral']
 
     # store the emoji coreesponding to different emotions
     emoji_faces = []
@@ -103,7 +103,7 @@ def realtime_emotions():
                                     (255, 0, 0), -1)
                     # for putting emotion labels
                     cv2.putText(frame, emotion, (10, index * 20 + 20),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (7, 109, 16), 2)
                     # for putting percentage confidence
                     cv2.putText(frame, text, (105 + int(result[0][index] * 100), index * 20 + 20),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
