@@ -1,3 +1,6 @@
 output/
 .ipynb_checkpoints/
 dataset/
+cv_raw.npy
+train_raw.npy
+test_raw.npy
