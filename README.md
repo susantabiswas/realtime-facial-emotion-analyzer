@@ -4,7 +4,7 @@ The model used achieved an accuracy of 63% on the test data.
 
 Model implementation was done in keras.<br>
 ## <u>List of files
-<br> `facial Emotions.ipynb` : 
+`facial Emotions.ipynb` : 
 Jupyter notebook with well documented code explaining model preparation from start to training. Can be used for retraining the model.
 <br> `main.py` : main python 
 <br> `webcam_utils` :
@@ -17,14 +17,15 @@ Code for preparing dataset for training
 Code for saving images from csv file
 <br>
   
-## <u>How to run
+## How to run
 There are two options:
 1. Realtime emotion detection, for this run<br>
-```python main.py emo_realtime```
-<br>  
+```python main.py emo_realtime```<br>
 2. Emotion detection using image path, for this<br>
-```python main.py emo_path --path <image path>```<br>
-e.g: ```python main.py emo_path --path saved_images/2.jpg```<br>
+```python main.py emo_path --path <image path>```
+  <br>
+   e.g: ```python main.py emo_path --path saved_images/2.jpg```
+  <br>
 If you don't want to specify path then just save the image as **"1.jpg"** inside **saved_images** folder<br>
   ```python main.py emo_path```
 
