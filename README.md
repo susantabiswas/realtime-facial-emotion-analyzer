@@ -3,9 +3,9 @@ Realtime Human Emotion Analysis From facial expressions. It uses a deep Convolut
 The model used achieved an accuracy of 63% on the test data.
 
 Model implementation was done in keras.<br>
-## List of files
-#### facial Emotions.ipynb : 
-Jupyter notebook with well documented code explaining model preparation from to training. Can be used for retraining the model.
+## <u>List of files
+<br> `facial Emotions.ipynb` : 
+Jupyter notebook with well documented code explaining model preparation from start to training. Can be used for retraining the model.
 <br> `main.py` : main python 
 <br> `webcam_utils` :
 Code for realtime emotion detection from face
@@ -15,11 +15,13 @@ Code for doing prediction on image saved on disk
 Code for preparing dataset for training
 <br> `preprocess.py` :
 Code for saving images from csv file
-
-## How to run
+<br>
+  
+## <u>How to run
 There are two options:
 1. Realtime emotion detection, for this run<br>
 ```python main.py emo_realtime```
+<br>  
 2. Emotion detection using image path, for this<br>
 ```python main.py emo_path --path <image path>```<br>
 e.g: ```python main.py emo_path --path saved_images/2.jpg```<br>
