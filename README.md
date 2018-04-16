@@ -10,7 +10,7 @@ Model implementation was done in keras.<br>
 <img src ='media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
 
 ### Emojis used:
-<img src="emojis/neutral.png" width="80" height="80">   <img src="emojis/happy.png" width="80" height="80">   <img src="emojis/fearful.png" width="80" height="80">   <img src="emojis/sad.png" width="80" height="80">   <img src="emojis/angry.png" width="80" height="80">   <img src="emojis/surprised.png" width="80" height="80">   <img src="emojis/disgusted.png" width="80" height="80">
+<img src="emojis/neutral.png" width="80" height="80">		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/happy.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/fearful.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/sad.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/angry.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/surprised.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="emojis/disgusted.png" width="80" height="80">
 
 ### Snapshot from Realtime emotion Analyzer
 The model prediction for the given frame was **Neutral** which is evident from the picture.<br>
@@ -42,6 +42,9 @@ There are two options:
   <br>e.g: ```python main.py emo_path --path saved_images/2.jpg```
   <br><br>If you don't want to specify path then just save the image as **"1.jpg"** inside **saved_images** folder<br> and run:
   ```python main.py emo_path```
+
+## Team Members:
+[`Susanta`](https://github.com/susantabiswas/) and [`Sagnik`](https://github.com/SagnikC/)
 
 ## Credits
 - Dataset used was from Kaggle fer2013 Challenge [Challenges in Representation Learning: Facial Expression Recognition Challenge](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
