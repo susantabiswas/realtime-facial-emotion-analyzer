@@ -74,13 +74,14 @@ def realtime_emotions():
             # keeps track of waiting time for emotion recognition
             curr_time = time.time()
             # do prediction only when the required elapsed time has passed 
-            if curr_time - prev_time >=1.5:
-                # indicates that prediction has been done atleast once
-                once = True
+            if curr_time - prev_time >=1:
                 # read the saved image
                 img = cv2.imread(save_loc, 0)
                 
                 if img is not None:
+                    # indicates that prediction has been done atleast once
+                    once = True
+
                     # resize image for the model
                     img = cv2.resize(img, (48, 48))
                     img = np.reshape(img, (1, 48, 48, 1))
