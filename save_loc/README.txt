@@ -1,0 +1,1 @@
+This is where a single temporary webcam image is stored
