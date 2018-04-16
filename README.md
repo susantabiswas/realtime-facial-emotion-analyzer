@@ -20,7 +20,8 @@ The model prediction for the given frame was **Neutral** which is evident from t
 <img src ='media/model_plot.png' >
   
 ## <u>List of files
-`facial Emotions.ipynb` : Jupyter notebook with well documented code explaining model preparation from start to training. Can be used for retraining the model.
+`facial Emotions.ipynb` : 
+Jupyter notebook with well documented code explaining model preparation from start to training. Can be used for retraining the model.
 <br> `main.py` : main python 
 <br> `webcam_utils` :
 Code for realtime emotion detection from face
@@ -34,16 +35,14 @@ Code for saving images from csv file
   
 ## How to run
 There are two options:
-1. Realtime emotion recognition, for this run:<br>
+1. Realtime emotion detection, for this run:<br>
 ```python main.py emo_realtime```<br>
-2. Emotion recognition using image path, for this run:<br>
+2. Emotion detection using image path, for this run:<br>
 ```python main.py emo_path --path <image path>```
   <br>e.g: ```python main.py emo_path --path saved_images/2.jpg```
   <br><br>If you don't want to specify path then just save the image as **"1.jpg"** inside **saved_images** folder<br> and run:
   ```python main.py emo_path```
 
-## Team Members:
-[`Susanta`](https://github.com/susantabiswas/) and [`Sagnik`](https://github.com/SagnikC/)
 ## Credits
 - Dataset used was from Kaggle fer2013 Challenge [Challenges in Representation Learning: Facial Expression Recognition Challenge](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
 - Emojis used were from https://emojiisland.com/
