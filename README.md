@@ -1,3 +1,4 @@
+[![HitCount](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer.svg)](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer)
 # Realtime Emotion Analysis from facial Expressions
 Realtime Human Emotion Analysis From facial expressions. It uses a deep Convolutional Neural Network.
 The model used achieved an accuracy of 63% on the test data. The realtime analyzer assigns a suitable emoji for the current emotion.
