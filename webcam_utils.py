@@ -34,7 +34,7 @@ def realtime_emotions():
     # store the emoji coreesponding to different emotions
     emoji_faces = []
     for index, emotion in enumerate(EMOTIONS):
-        emoji_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
+        emoji_faces.append(cv2.imread('emojis/' + emotion.lower()  + '.png', -1))
 
     # set video capture device , webcam in this case
     video_capture = cv2.VideoCapture(0)
