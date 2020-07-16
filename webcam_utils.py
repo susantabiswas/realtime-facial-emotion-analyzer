@@ -37,7 +37,7 @@ def realtime_emotions():
         emoji_faces.append(cv2.imread('emojis/' + emotion.lower()  + '.png', -1))
 
     # set video capture device , webcam in this case
-    video_capture = cv2.VideoCapture(-1)
+    video_capture = cv2.VideoCapture(0)
     video_capture.set(3, 640)  # WIDTH
     video_capture.set(4, 480)  # HEIGHT
 
@@ -45,12 +45,13 @@ def realtime_emotions():
     prev_time = time.time()
 
     # start webcam feed
-    while True:
+    while (video_capture.isOpened()):
         # Capture frame-by-frame
         ret, frame = video_capture.read()
         # mirror the frame
         frame = cv2.flip(frame, 1, 0)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if ret:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # find face in the frame
         faces = faceCascade.detectMultiScale(
