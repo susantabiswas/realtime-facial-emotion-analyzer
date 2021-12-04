@@ -67,3 +67,40 @@ def load_image_path(img_path, mode: str = "rgb"):
         raise exc
 
 
+def draw_bounding_box(image, bbox: List[int], color: Tuple = (0, 255, 0)):
+    """Used for drawing bounding box on an image
+
+    Args:
+        image (numpy array): [description]
+        bbox (List[int]): Bounding box coordinates
+        color (Tuple, optional): [description]. Defaults to (0,255,0).
+
+    Returns:
+        [type]: [description]
+    """
+    x1, y1, x2, y2 = bbox
+    cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
+    return image
+
+
+def draw_annotation(image, name: str, bbox: List[int], color: Tuple = (0, 255, 0)):
+    """Used for drawing bounding box and label on an image
+
+    Args:
+        image (numpy array): [description]
+        name (str): Label to annotate
+        bbox (List[int]): Bounding box coordinates
+        color (Tuple, optional): [description]. Defaults to (0,255,0).
+
+    Returns:
+        [type]: [description]
+    """
+    draw_bounding_box(image, bbox, color=color)
+    x1, y1, x2, y2 = bbox
+
+    # Draw the label with name below the face
+    cv2.rectangle(image, (x1, y2 - 20), (x2, y2), color, cv2.FILLED)
+    font = cv2.FONT_HERSHEY_DUPLEX
+    cv2.putText(image, name, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
+
+
