@@ -121,12 +121,12 @@ class FaceDetectorMTCNN(FaceDetector):
 
 if __name__ == "__main__":
 
-    # Sample Usage
-    ob = FaceDetectorMTCNN(crop_forehead=False)
-    img = cv2.imread("data/sample/1.jpg")
+    # # Sample Usage
+    # ob = FaceDetectorMTCNN(crop_forehead=False)
+    # img = cv2.imread("data/sample/1.jpg")
 
-    # import numpy as np
-    # img = np.zeros((100,100,5), dtype='float32')
-    bbox = ob.detect_faces(convert_to_rgb(img))
-    cv2.imwrite('data/out1.jpg', img)
-
+    # # import numpy as np
+    # # img = np.zeros((100,100,5), dtype='float32')
+    # bbox = ob.detect_faces(convert_to_rgb(img))
+    # cv2.imwrite('data/out1.jpg', img)
+    pass
