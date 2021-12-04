@@ -123,3 +123,23 @@ def get_facial_ROI(image, bbox: List[int]):
     return image[bbox[1] : bbox[3], bbox[0] : bbox[2], :]
 
 
+def get_video_writer(video_stream, output_filename: str = "data/output.mp4"):
+    """Returns an OpenCV video writer with mp4 codec stream
+
+    Args:
+        video_stream (OpenCV video stream obj): Input video stream
+        output_filename (str):
+
+    Returns:
+        OpenCV VideoWriter:
+    """
+    try:
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        FPS = video_stream.get(cv2.CAP_PROP_FPS)
+
+        # (Width, Height)
+        dims = (int(video_stream.get(3)), int(video_stream.get(4)))
+        video_writer = cv2.VideoWriter(output_filename, fourcc, FPS, dims)
+        return video_writer
+    except Exception as exc:
+        raise exc
