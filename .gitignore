@@ -1,0 +1,5 @@
+**__pycache__
+.benchmark/
+.pytest_cache/
+**.log
+.coverage
