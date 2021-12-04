@@ -104,3 +104,22 @@ def draw_annotation(image, name: str, bbox: List[int], color: Tuple = (0, 255, 0
     cv2.putText(image, name, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
 
 
+def get_facial_ROI(image, bbox: List[int]):
+    """Extracts the facial region in an image
+    using the bounding box coordinates.
+
+    Args:
+        image ([type]): [description]
+        bbox (List[int]): [description]
+
+    Raises:
+        InvalidImage: [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if image is None or bbox is None:
+        raise InvalidImage if image is None else ValueError
+    return image[bbox[1] : bbox[3], bbox[0] : bbox[2], :]
+
+
