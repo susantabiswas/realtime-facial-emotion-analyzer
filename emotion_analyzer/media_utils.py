@@ -108,8 +108,6 @@ def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tupl
 
     # Draw the label with name below the face
     cv2.rectangle(image, (x1, y2), (x2, y2 + 20), color, cv2.FILLED)
-    # font = cv2.FONT_HERSHEY_DUPLEX
-    # cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
     pil_img = Image.fromarray(image)
     
     # PIL drawing context
@@ -165,15 +163,11 @@ def annotate_emotion_stats(emotion_data, img):
     for index, emotion in enumerate(emotion_data.keys()):
         # for putting emotion labels
         draw.text((10, index * 20 + 20), emotion, (7, 109, 16), font=annotation_font)
-        # cv2.putText(img, emotion, (10, index * 20 + 20),
-        #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (7, 109, 16), 2)
         
         emotion_confidence = str(emotion_data[emotion]) + "%"
         # for putting percentage confidence
         draw.text((105 + int(emotion_data[emotion]), index * 20 + 20), emotion_confidence, (255, 0, 0), font=annotation_font)
-        # cv2.putText(img, emotion_confidence, (105 + int(emotion_data[emotion]), index * 20 + 20),
-        #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
-
+        
     # Convert PIL img to numpy array type
     return np.array(pil_img)
         
