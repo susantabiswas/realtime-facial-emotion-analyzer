@@ -159,6 +159,8 @@ class EmotionAnalysisVideo:
 
     def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
         emojis = []
+        logger.info("Emojis loaded...")
+
         return emojis
 
 
