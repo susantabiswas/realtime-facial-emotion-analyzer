@@ -164,7 +164,7 @@ class EmotionAnalysisVideo:
 
         # draw bounding boxes for each detected person
         for data in emotion_data:
-            draw_bounding_box_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
+            image = draw_bounding_box_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
 
         # If there are more than one person in frame, the emoji can be shown for 
         # only one, so show a warning. In case of multiple people the stats are shown 

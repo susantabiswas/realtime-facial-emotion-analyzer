@@ -16,8 +16,9 @@ from emotion_analyzer.validators import is_valid_img
 
 
 # truetype font
-warning_font = ImageFont.truetype("data/Ubuntu-R.ttf", 18)
+warning_font = ImageFont.truetype("data/Ubuntu-R.ttf", 20)
 annotation_font = ImageFont.truetype("data/Ubuntu-R.ttf", 16)
+bbox_font = ImageFont.truetype("data/Ubuntu-R.ttf", 16)
 
 def convert_to_rgb(image):
     """Converts an image to RGB format.
@@ -89,7 +90,7 @@ def draw_bounding_box(image, bbox: List[int], color: Tuple = (0, 255, 0)):
     return image
 
 
-def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tuple = (0, 255, 0)):
+def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tuple = (84, 247, 131)):
     """Used for drawing bounding box and label on an image
 
     Args:
@@ -101,13 +102,22 @@ def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tupl
     Returns:
         [type]: [description]
     """
-    draw_bounding_box(image, bbox, color=color)
     x1, y1, x2, y2 = bbox
+    # Make the bbox a bit taller than usual to cover the face properly
+    draw_bounding_box(image, [x1, y1, x2, y2 + 20], color=color)
 
     # Draw the label with name below the face
-    cv2.rectangle(image, (x1, y2 - 20), (x2, y2), color, cv2.FILLED)
-    font = cv2.FONT_HERSHEY_DUPLEX
-    cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
+    cv2.rectangle(image, (x1, y2), (x2, y2 + 20), color, cv2.FILLED)
+    # font = cv2.FONT_HERSHEY_DUPLEX
+    # cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
+    pil_img = Image.fromarray(image)
+    
+    # PIL drawing context
+    draw = ImageDraw.Draw(pil_img)
+    draw.text((x1 + 20, y2 + 2), label, (0, 0, 0), font=bbox_font)
+
+    # Convert PIL img to numpy array type
+    return np.array(pil_img)
 
 
 def annotate_warning(warning_text: str, img):
@@ -118,13 +128,18 @@ def annotate_warning(warning_text: str, img):
         img (numpy array): input image
     """
     h, _, _ = img.shape
-    x, y = 150, h - 50
+    x, y = 150, h - 100
 
     pil_img = Image.fromarray(img.copy())
     
     # PIL drawing context
     draw = ImageDraw.Draw(pil_img)
-    draw.text((x, y), warning_text, (255, 255, 255), font=warning_font)
+    draw.text((x+1, y+1), warning_text, (0, 0, 0), font=warning_font)
+    draw.text((x, y), warning_text, (12, 52, 242), font=warning_font)
+
+    warning_text = "Emotion chart will be shown for only one person!"
+    draw.text((x+1, y+30), warning_text, (0, 0, 0), font=warning_font)
+    draw.text((x, y+31), warning_text, (255, 255, 255), font=warning_font)
 
     # Convert PIL img to numpy array type
     return np.array(pil_img)
