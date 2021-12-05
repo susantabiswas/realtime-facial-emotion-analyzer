@@ -24,4 +24,7 @@ except Exception as exc:
     raise exc
 
 class EmotionAnalysis(EmotionAnalysisBase):
-    pass
+    def __init__(self) -> None:
+        super().__init__()
+
+    def detect_emotion(self)
