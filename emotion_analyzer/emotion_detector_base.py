@@ -13,5 +13,5 @@ from abc import ABC, abstractmethod
 
 class EmotionDetectorBase(ABC):
     @abstractmethod
-    def detect_emotion(self):
+    def detect_emotion(self, img):
         pass
