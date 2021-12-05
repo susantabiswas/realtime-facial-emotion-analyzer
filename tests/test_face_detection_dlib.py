@@ -1,3 +1,9 @@
+# ---- coding: utf-8 ----
+# ===================================================
+# Author: Susanta Biswas
+# ===================================================
+"""Description: Tests for dlib face detector."""
+# ===================================================
 from emotion_analyzer.exceptions import ModelFileMissing, InvalidImage
 from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
 import pytest
