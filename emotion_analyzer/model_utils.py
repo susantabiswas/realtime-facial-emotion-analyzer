@@ -21,7 +21,7 @@ def define_model():
     """Creates a model from a predefined architecture
 
     Returns:
-        model: keras model
+        model: Sequential keras model
     """
     model = Sequential()
 
