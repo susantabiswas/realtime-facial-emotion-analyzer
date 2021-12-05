@@ -9,6 +9,8 @@ from typing import List, Tuple
 
 import cv2
 import dlib
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 
 from emotion_analyzer.exceptions import InvalidImage
 from emotion_analyzer.validators import is_valid_img
@@ -113,9 +115,21 @@ def annotate_warning(warning_text: str, img):
         img (numpy array): input image
     """
     font = cv2.FONT_HERSHEY_SIMPLEX
-    h, w, _ = img.shape
+    h, _, _ = img.shape
     x, y = 150, h - 50
-    cv2.putText(img, warning_text, (x, y), font, 0.7, (0, 0, 0), 2)
+    
+    #cv2.putText(img, warning_text, (x, y), font, 0.7, (0, 0, 0), 2)
+
+    pil_img = Image.fromarray(img.copy())
+    # truetype font
+    font = ImageFont.truetype("data/Ubuntu-R.ttf", 24)
+    
+    # PIL drawing context
+    draw = ImageDraw.Draw(pil_img)
+    draw.text((x, y), warning_text, (255, 255, 255), font=font)
+
+    # Convert PIL img to numpy array type
+    return np.array(pil_img)
 
 
 def annotate_emotion_stats(emotion_data, img):

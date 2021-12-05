@@ -113,7 +113,7 @@ class EmotionAnalysisVideo:
                         emotions = self.emotion_detector.detect_emotion(smaller_frame)
                         
                     # Annotate the current frame with emotion detection data
-                    self.annotate_emotion_data(emotions, frame, resize_scale)
+                    frame = self.annotate_emotion_data(emotions, frame, resize_scale)
 
                     if save_output:
                         video_writer.write(frame)
@@ -141,28 +141,6 @@ class EmotionAnalysisVideo:
             video_writer.release()
 
     
-    def annotate_emotion_data(
-        self, emotion_data: List[Dict], image, resize_scale: float) -> None:
-
-        # draw bounding boxes for each detected person
-        for data in emotion_data:
-            draw_bounding_box_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
-
-        # If there are more than one person in frame, the emoji can be shown for 
-        # only one, so show a warning. In case of multiple people the stats are shown 
-        # for just one person
-        WARNING_TEXT = "Warning ! More than one person detected !"
-
-        if(len(emotion_data) > 0):
-            annotate_warning(WARNING_TEXT, image)
-
-        if(len(emotion_data) > 0):
-            # draw emotion confidence stats
-            annotate_emotion_stats(emotion_data[0]['confidence_scores'], image)
-            # draw the emoji corresponding to the emotion
-            draw_emoji(self.emojis[emotion_data[0]['emotion']], image)
-
-
     def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
         emojis = {}
 
@@ -178,6 +156,30 @@ class EmotionAnalysisVideo:
         logger.info("Finished loading emojis...")
 
         return emojis
+
+
+    def annotate_emotion_data(
+        self, emotion_data: List[Dict], image, resize_scale: float) -> None:
+
+        # draw bounding boxes for each detected person
+        for data in emotion_data:
+            draw_bounding_box_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
+
+        # If there are more than one person in frame, the emoji can be shown for 
+        # only one, so show a warning. In case of multiple people the stats are shown 
+        # for just one person
+        WARNING_TEXT = "Warning ! More than one person detected !"
+
+        if(len(emotion_data) > 0):
+            image = annotate_warning(WARNING_TEXT, image)
+
+        if(len(emotion_data) > 0):
+            # draw emotion confidence stats
+            annotate_emotion_stats(emotion_data[0]['confidence_scores'], image)
+            # draw the emoji corresponding to the emotion
+            draw_emoji(self.emojis[emotion_data[0]['emotion']], image)
+
+        return image
 
 
 if __name__ == "__main__":
@@ -200,5 +202,3 @@ if __name__ == "__main__":
         output_path = "data/output.mp4",
         resize_scale = 0.5
     )
-
-
