@@ -1,29 +1,25 @@
 import cv2
 import numpy as np
 
+def load_images(start_idx, end_idx, base_path):
+    # training images
+    images = []
+    for name in range(start_idx, end_idx):
+        img = cv2.imread(base_path + str(name) + '.jpg', 0)
+        if img is not None:
+            images.append(img)
+
+    return images
+
 # read images from folder
 def load_images_folder():
     # training images
-    images_train = []
-    for name in range(28710):
-        img = cv2.imread('output/Training/' + str(name) + '.jpg', 0)
-        if img is not None:
-            images_train.append(img)
-
+    images_train = load_images(0, 28710, 'output/Training/')
     # validation images
-    images_cv = []
-    for name in range(28710, 32299):
-        img = cv2.imread('output/PublicTest/' + str(name) + '.jpg', 0)
-        if img is not None:
-            images_cv.append(img)
-
+    images_cv = load_images(28710, 32299, 'output/PublicTest/')
     # test images
-    images_test = []
-    for name in range(32299, 35888):
-        img = cv2.imread('output/PrivateTest/' + str(name) + '.jpg', 0)
-        if img is not None:
-            images_test.append(img)
-
+    images_test = load_images(32299, 35888, 'output/PrivateTest/')
+    
     return images_train, images_cv, images_test
     
 
