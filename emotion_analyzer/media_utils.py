@@ -104,7 +104,7 @@ def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tupl
     cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
 
 
-def annotate_warning(warning_text, img):
+def annotate_warning(warning_text: str, img):
     """Draws warning text at the bottom of screen
 
     Args:
@@ -113,7 +113,7 @@ def annotate_warning(warning_text, img):
     """
 
 
-def annotate_emotion_stats(emotion_data, img):
+def annotate_emotion_stats(emotion_data: Dict, img):
     """Draws a bar chart of emotion labels on top of image
 
     Args:
@@ -131,6 +131,7 @@ def draw_emoji(emoji, img):
         img (numpy array): input image
     """
     pass
+
 
 def get_facial_ROI(image, bbox: List[int]):
     """Extracts the facial region in an image

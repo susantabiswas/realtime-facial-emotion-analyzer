@@ -16,15 +16,14 @@ import cv2
 import numpy as np
 
 from emotion_analyzer.exceptions import PathNotFound
-from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
-from emotion_analyzer.face_detection_mtcnn import FaceDetectorMTCNN
-from emotion_analyzer.face_detection_opencv import FaceDetectorOpenCV
 from emotion_analyzer.emotion_detector import EmotionDetector
 from emotion_analyzer.logger import LoggerFactory
 from emotion_analyzer.media_utils import (
+    annotate_emotion_stats,
+    annotate_warning,
     convert_to_rgb,
-    draw_annotation,
-    draw_bounding_box,
+    draw_bounding_box_annotation,
+    draw_emoji,
     get_video_writer,
 )
 from emotion_analyzer.validators import path_exists
@@ -152,13 +151,16 @@ class EmotionAnalysisVideo:
         # If there are more than one person in frame, the emoji can be shown for 
         # only one, so show a warning. In case of multiple people the stats are shown 
         # for just one person
-        if(len(emotion_data)):
-            annotate_warning(warning_text)
+        WARNING_TEXT = "Warning ! More than one person detected !"
 
-        # draw emotion confidence stats
-        annotate_emotion_stats(emotion_data)
-        # draw the emoji corresponding to the emotion
-        draw_emoji()
+        if(len(emotion_data)):
+            annotate_warning(WARNING_TEXT, image)
+
+        if(len(emotion_data) > 0):
+            # draw emotion confidence stats
+            annotate_emotion_stats(emotion_data[0]['confidence_scores'], image)
+            # draw the emoji corresponding to the emotion
+            draw_emoji(self.emojis[emotion_data[0]['emotion']], image)
 
 
     def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
@@ -171,7 +173,7 @@ class EmotionAnalysisVideo:
         # store the emoji coreesponding to different emotions
         for _, emotion in enumerate(EMOTIONS):
             emoji_path = os.path.join(self.emoji_path, emotion.lower() + '.png')
-            emojis.append(cv2.imread(emoji_path, -1))
+            emojis[emotion] = cv2.imread(emoji_path, -1)
 
         logger.info("Finished loading emojis...")
 

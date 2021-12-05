@@ -106,7 +106,7 @@ class EmotionDetector(EmotionDetectorBase):
                 # extract the current face from image and run emotion detection
                 face = get_facial_ROI(image, bbox)
                 emotion, emotion_conf = self.detect_facial_emotion(face)
-                facial_data = { "bbox": bbox, "emotion": emotion, "confidence": emotion_conf}
+                facial_data = { "bbox": bbox, "emotion": emotion, "confidence_scores": emotion_conf}
                 emotions.append(facial_data)
         
         except Exception as excep:
