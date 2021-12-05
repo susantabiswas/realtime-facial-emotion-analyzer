@@ -1,4 +1,4 @@
 [run]
-omit = video_main.py,tests//*,emotion_analyzer\model_utils.py,
-        emotion_analyzer\emotion_detector_base.py,emotion_analyzer\media_utils.py,
-        emotion_analyzer\exceptions.py,emotion_analyzer\face_detector.py
+omit = video_main.py,tests//*,emotion_analyzer//model_utils.py,
+        emotion_analyzer//emotion_detector_base.py,emotion_analyzer//media_utils.py,
+        emotion_analyzer//exceptions.py,emotion_analyzer//face_detector.py,emotion_analyzer/validators.py
