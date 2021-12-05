@@ -43,13 +43,20 @@ except Exception as exc:
 
 class EmotionAnalysisVideo:
     """Class with methods to do emotion analysis on video or webcam feed."""
+    emoji_foldername = 'emojis'
 
     def __init__(
         self,
         face_detector: str = "dlib",
         model_loc: str = "models",
         face_detection_threshold: float = 0.8,
+        emoji_loc: str = 'data'
     ) -> None:
+
+        # construct the path to emoji folder
+        emoji_path = os.path.join(emoji_loc, EmotionDetector.emoji_foldername)
+        # Load the emojis
+        self.emojis = self.load_emojis(emoji_path=emoji_path)
 
         self.emotion_detector = EmotionDetector(
             model_loc=model_loc,
@@ -150,8 +157,9 @@ class EmotionAnalysisVideo:
             draw_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
 
 
-    def load_emojis(self, emoji_path:str = 'data//emoji'):
-        pass
+    def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
+        emojis = []
+        return emojis
 
 
 if __name__ == "__main__":
