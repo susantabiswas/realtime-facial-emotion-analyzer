@@ -18,7 +18,6 @@ import cv2
 from emotion_analyzer.exceptions import InvalidImage, ModelFileMissing
 from emotion_analyzer.face_detector import FaceDetector
 from emotion_analyzer.logger import LoggerFactory
-from emotion_analyzer.media_utils import convert_to_rgb, draw_bounding_box
 from emotion_analyzer.validators import is_valid_img
 
 # Load the custom logger

@@ -4,7 +4,6 @@
 # ===================================================
 """Description: Helper methods for media operations."""
 # ===================================================
-import decimal
 from typing import List, Tuple
 
 import cv2
@@ -15,6 +14,10 @@ from PIL import Image, ImageDraw, ImageFont
 from emotion_analyzer.exceptions import InvalidImage
 from emotion_analyzer.validators import is_valid_img
 
+
+# truetype font
+warning_font = ImageFont.truetype("data/Ubuntu-R.ttf", 18)
+annotation_font = ImageFont.truetype("data/Ubuntu-R.ttf", 16)
 
 def convert_to_rgb(image):
     """Converts an image to RGB format.
@@ -114,17 +117,14 @@ def annotate_warning(warning_text: str, img):
         warning_text (str): warning label
         img (numpy array): input image
     """
-    font = cv2.FONT_HERSHEY_SIMPLEX
     h, _, _ = img.shape
     x, y = 150, h - 50
 
     pil_img = Image.fromarray(img.copy())
-    # truetype font
-    font = ImageFont.truetype("data/Ubuntu-R.ttf", 24)
     
     # PIL drawing context
     draw = ImageDraw.Draw(pil_img)
-    draw.text((x, y), warning_text, (255, 255, 255), font=font)
+    draw.text((x, y), warning_text, (255, 255, 255), font=warning_font)
 
     # Convert PIL img to numpy array type
     return np.array(pil_img)
@@ -137,20 +137,32 @@ def annotate_emotion_stats(emotion_data, img):
         emotion_data (Dict): Emotions and their respective prediction confidence
         img (numpy array): input image
     """
+
     for index, emotion in enumerate(emotion_data.keys()):
-        
         # for drawing progress bar
-        cv2.rectangle(img, (100, index * 20 + 10), (100 +int(emotion_data[emotion]), (index + 1) * 20 + 4),
+        cv2.rectangle(img, (100, index * 20 + 20), (100 + int(emotion_data[emotion]), (index + 1) * 20 + 18),
                         (255, 0, 0), -1)
+
+    # convert to PIL format image
+    pil_img = Image.fromarray(img.copy())
+    # PIL drawing context
+    draw = ImageDraw.Draw(pil_img)
+    
+    for index, emotion in enumerate(emotion_data.keys()):
         # for putting emotion labels
-        cv2.putText(img, emotion, (10, index * 20 + 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (7, 109, 16), 2)
+        draw.text((10, index * 20 + 20), emotion, (7, 109, 16), font=annotation_font)
+        # cv2.putText(img, emotion, (10, index * 20 + 20),
+        #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (7, 109, 16), 2)
         
         emotion_confidence = str(emotion_data[emotion]) + "%"
         # for putting percentage confidence
-        cv2.putText(img, emotion_confidence, (105 + int(emotion_data[emotion]), index * 20 + 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+        draw.text((105 + int(emotion_data[emotion]), index * 20 + 20), emotion_confidence, (255, 0, 0), font=annotation_font)
+        # cv2.putText(img, emotion_confidence, (105 + int(emotion_data[emotion]), index * 20 + 20),
+        #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
 
+    # Convert PIL img to numpy array type
+    return np.array(pil_img)
+        
 
 def draw_emoji(emoji, img):
     """Puts an emoji img on top of another image.
@@ -165,6 +177,8 @@ def draw_emoji(emoji, img):
         foreground = emoji[:, :, c] * (emoji[:, :, 3] / 255.0)
         background = img[350:470, 10:130, c] * (1.0 - emoji[:, :, 3] / 255.0)
         img[350:470, 10:130, c] = foreground + background
+
+    return img
 
 
 def get_facial_ROI(image, bbox: List[int]):

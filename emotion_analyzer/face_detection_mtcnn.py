@@ -21,7 +21,6 @@ from mtcnn import MTCNN
 from emotion_analyzer.exceptions import InvalidImage
 from emotion_analyzer.face_detector import FaceDetector
 from emotion_analyzer.logger import LoggerFactory
-from emotion_analyzer.media_utils import convert_to_rgb
 from emotion_analyzer.validators import is_valid_img
 
 # Load the custom logger

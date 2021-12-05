@@ -118,7 +118,8 @@ class EmotionAnalysisVideo:
                     if save_output:
                         video_writer.write(frame)
                     if preview:
-                        cv2.imshow("Preview", cv2.resize(frame, (680, 480)))
+                        # cv2.resize(frame, (680, 480))
+                        cv2.imshow("Preview", frame)
 
                     key = cv2.waitKey(1) & 0xFF
                     if key == ord("q"):
@@ -175,9 +176,9 @@ class EmotionAnalysisVideo:
 
         if(len(emotion_data) > 0):
             # draw emotion confidence stats
-            annotate_emotion_stats(emotion_data[0]['confidence_scores'], image)
+            image = annotate_emotion_stats(emotion_data[0]['confidence_scores'], image)
             # draw the emoji corresponding to the emotion
-            draw_emoji(self.emojis[emotion_data[0]['emotion']], image)
+            image = draw_emoji(self.emojis[emotion_data[0]['emotion']], image)
 
         return image
 
