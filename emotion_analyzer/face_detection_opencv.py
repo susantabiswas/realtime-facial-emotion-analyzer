@@ -5,7 +5,7 @@
 """Description: Class for face detection. Uses a OpenCV's CNN 
 model to get the bounding box coordinates for a human face.
 
-Usage: python -m face_recog.face_detection_opencv
+Usage: python -m emotion_analyzer.face_detection_opencv
 """
 # ===================================================
 
