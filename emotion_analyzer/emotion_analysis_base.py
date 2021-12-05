@@ -8,3 +8,10 @@ Usage: python -m emotion_analyzer.emotion_analysis_base
 
 """
 # ===================================================
+from abc import ABC, abstractmethod
+
+
+class EmotionAnalysisBase(ABC):
+    @abstractmethod
+    def detect_emotion(self):
+        pass
