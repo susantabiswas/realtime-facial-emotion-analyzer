@@ -83,7 +83,7 @@ def draw_bounding_box(image, bbox: List[int], color: Tuple = (0, 255, 0)):
     return image
 
 
-def draw_annotation(image, name: str, bbox: List[int], color: Tuple = (0, 255, 0)):
+def draw_annotation(image, label: str, bbox: List[int], color: Tuple = (0, 255, 0)):
     """Used for drawing bounding box and label on an image
 
     Args:
@@ -101,7 +101,7 @@ def draw_annotation(image, name: str, bbox: List[int], color: Tuple = (0, 255, 0
     # Draw the label with name below the face
     cv2.rectangle(image, (x1, y2 - 20), (x2, y2), color, cv2.FILLED)
     font = cv2.FONT_HERSHEY_DUPLEX
-    cv2.putText(image, name, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
+    cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
 
 
 def get_facial_ROI(image, bbox: List[int]):

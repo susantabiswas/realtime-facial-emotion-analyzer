@@ -15,7 +15,7 @@ from typing import Dict, List
 import cv2
 import numpy as np
 
-from emotion_analyzer.exceptions import NoNameProvided, PathNotFound
+from emotion_analyzer.exceptions import PathNotFound
 from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
 from emotion_analyzer.face_detection_mtcnn import FaceDetectorMTCNN
 from emotion_analyzer.face_detection_opencv import FaceDetectorOpenCV
@@ -51,7 +51,7 @@ class EmotionAnalysisVideo:
         face_detection_threshold: float = 0.8,
     ) -> None:
 
-        self.emotion_analyzer = EmotionDetector(
+        self.emotion_detector = EmotionDetector(
             model_loc=model_loc,
             face_detection_threshold=face_detection_threshold,
             face_detector=face_detector,
@@ -64,4 +64,114 @@ class EmotionAnalysisVideo:
             self.face_detector = FaceDetectorMTCNN(crop_forehead=True, shrink_ratio=0.2)
         elif face_detector == "dlib":
             self.face_detector = FaceDetectorDlib()
+
+    def emotion_analysis_video(
+        self,
+        video_path: str = None,
+        detection_interval: int = 15,
+        save_output: bool = False,
+        preview: bool = False,
+        output_path: str = "data/output.mp4",
+        resize_scale: float = 0.5
+    ) -> None:
+
+        if video_path is None:
+            # If no video source is given, try
+            # switching to webcam
+            video_path = 0
+        elif not path_exists(video_path):
+            raise FileNotFoundError
+
+        cap, video_writer = None, None
+
+        try:
+            cap = cv2.VideoCapture(video_path)
+            # To save the video file, get the opencv video writer
+            video_writer = get_video_writer(cap, output_path)
+            frame_num = 1
+            
+            t1 = time.time()
+            logger.info("Enter q to exit...")
+
+            emotions = None
+
+            while True:
+                status, frame = cap.read()
+                if not status:
+                    break
+                
+                try:
+                    # Flip webcam feed so that it looks mirrored
+                    if video_path == 0:
+                        frame = cv2.flip(frame, 2)
+
+                    if frame_num % detection_interval == 0:
+                        # Scale down the image to increase model
+                        # inference time.
+                        smaller_frame = convert_to_rgb(
+                            cv2.resize(frame, (0, 0), fx=resize_scale, fy=resize_scale)
+                        )
+                        # Detect emotion 
+                        emotions = self.emotion_detector.detect_emotion(smaller_frame)
+                        
+                    # Annotate the current frame with emotion detection data
+                    self.annotate_emotion_data(emotions, frame, resize_scale)
+
+                    if save_output:
+                        video_writer.write(frame)
+                    if preview:
+                        cv2.imshow("Preview", cv2.resize(frame, (680, 480)))
+
+                    key = cv2.waitKey(1) & 0xFF
+                    if key == ord("q"):
+                        break
+
+                except Exception as exc:
+                    raise exc
+                frame_num += 1
+
+            t2 = time.time()
+            logger.info("Time:{}".format((t2 - t1) / 60))
+            logger.info("Total frames: {}".format(frame_num))
+            logger.info("Time per frame: {}".format((t2 - t1) / frame_num))
+
+        except Exception as exc:
+            raise exc
+        finally:
+            cv2.destroyAllWindows()
+            cap.release()
+            video_writer.release()
+
+    
+    def annotate_emotion_data(
+        self, emotion_data: List[Dict], image, resize_scale: float) -> None:
+
+        for data in emotion_data:
+            draw_annotation(image, data['emotion'], int(1 / resize_scale) * np.array(data['bbox']))
+
+
+    def load_emojis(self, emoji_path:str = 'data//emoji'):
+        pass
+
+
+if __name__ == "__main__":
+    import os
+    # SAMPLE USAGE
+    from emotion_analyzer.media_utils import load_image_path
+
+    ob = EmotionAnalysisVideo(
+            face_detector = "dlib",
+            model_loc = "models",
+            face_detection_threshold = 0.0,
+        )
+
+    img1 = load_image_path("data/sample/1.jpg")
+    ob.emotion_analysis_video(
+        video_path = None,
+        detection_interval = 1,
+        save_output = False,
+        preview = True,
+        output_path = "data/output.mp4",
+        resize_scale = 0.5
+    )
 

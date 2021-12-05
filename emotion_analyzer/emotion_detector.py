@@ -100,7 +100,7 @@ class EmotionDetector(EmotionDetectorBase):
         try:
             bboxes = self.face_detector.detect_faces(image=image)
             if bboxes is None or len(bboxes) == 0:
-                raise NoFaceDetected
+                return emotions
             
             for bbox in bboxes:
                 # extract the current face from image and run emotion detection
@@ -108,7 +108,7 @@ class EmotionDetector(EmotionDetectorBase):
                 emotion, emotion_conf = self.detect_facial_emotion(face)
                 facial_data = { "bbox": bbox, "emotion": emotion, "confidence": emotion_conf}
                 emotions.append(facial_data)
-                
+        
         except Exception as excep:
             raise excep
 
@@ -141,7 +141,7 @@ class EmotionDetector(EmotionDetectorBase):
         face = np.reshape(face, (1, 48, 48, 1))
         
         model_output = self.model.predict(face)
-        emotion = EMOTIONS[np.argmax(model_output[0])]
+        detected_emotion = EMOTIONS[np.argmax(model_output[0])]
 
         # confidence for each emotion predication
         emotion_confidence = {}
@@ -153,7 +153,7 @@ class EmotionDetector(EmotionDetectorBase):
                 round(Decimal(model_output[0][index] / total_sum * 100), 2) ) + "%"
             emotion_confidence[emotion] = confidence
 
-        return emotion, emotion_confidence
+        return detected_emotion, emotion_confidence
 
 
 if __name__ == "__main__":
