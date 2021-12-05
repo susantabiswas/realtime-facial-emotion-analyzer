@@ -17,11 +17,11 @@ from typing import List
 import cv2
 import dlib
 
-from face_recog.exceptions import InvalidImage, ModelFileMissing
-from face_recog.face_detector import FaceDetector
-from face_recog.logger import LoggerFactory
-from face_recog.media_utils import convert_to_rgb
-from face_recog.validators import is_valid_img
+from emotion_analyzer.exceptions import InvalidImage, ModelFileMissing
+from emotion_analyzer.face_detector import FaceDetector
+from emotion_analyzer.logger import LoggerFactory
+from emotion_analyzer.media_utils import convert_to_rgb
+from emotion_analyzer.validators import is_valid_img
 
 # Load the custom logger
 logger = None

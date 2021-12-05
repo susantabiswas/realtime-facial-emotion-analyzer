@@ -1,7 +1,5 @@
 from emotion_analyzer.media_utils import load_image_path
 import pytest
-import cv2
-import numpy as np
 
 
 @pytest.fixture
