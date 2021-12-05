@@ -137,8 +137,7 @@ def annotate_warning(warning_text: str, img):
     draw.text((x+1, y+1), warning_text, (0, 0, 0), font=warning_font)
     draw.text((x, y), warning_text, (12, 52, 242), font=warning_font)
 
-    warning_text = "Emotion chart will be shown for only one person!"
-    draw.text((x+1, y+30), warning_text, (0, 0, 0), font=warning_font)
+    warning_text = "Emotion chart will be shown for one person only!"
     draw.text((x, y+31), warning_text, (255, 255, 255), font=warning_font)
 
     # Convert PIL img to numpy array type
