@@ -145,15 +145,17 @@ class EmotionDetector(EmotionDetectorBase):
 
 
 if __name__ == "__main__":
-    from emotion_analyzer.media_utils import load_image_path
+    # SAMPLE USAGE
+    # from emotion_analyzer.media_utils import load_image_path
 
-    ob = EmotionDetector(
-        model_loc="models",
-        face_detector="dlib",
-    )
-    img1 = load_image_path("data/sample/1.jpg")
-    emotion, emotion_conf = ob.detect_facial_emotion(img1)
-    print(emotion_conf)
+    # ob = EmotionDetector(
+    #     model_loc="models",
+    #     face_detector="dlib",
+    # )
+    # img1 = load_image_path("data/sample/1.jpg")
+    # emotion, emotion_conf = ob.detect_facial_emotion(img1)
+    # print(emotion_conf)
 
-    emotions = ob.detect_emotion(img1)
-    print(emotions)
+    # emotions = ob.detect_emotion(img1)
+    # print(emotions)
+    pass
