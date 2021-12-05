@@ -29,7 +29,6 @@ def test_incorrect_model_path():
     """
     Test object init with the incorrect model path
     """
-    ob = None
     incorrect_model_loc = "./wrong_models"
     with pytest.raises(ModelFileMissing):
         ob = FaceDetectorDlib(model_loc=incorrect_model_loc, model_type="mmod")
