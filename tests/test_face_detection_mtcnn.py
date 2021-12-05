@@ -1,3 +1,10 @@
+# ---- coding: utf-8 ----
+# ===================================================
+# Author: Susanta Biswas
+# ===================================================
+"""Description: Tests for mtcnn face detector."""
+# ===================================================
+
 from emotion_analyzer.exceptions import InvalidImage
 from emotion_analyzer.face_detection_mtcnn import FaceDetectorMTCNN
 import numpy as np
