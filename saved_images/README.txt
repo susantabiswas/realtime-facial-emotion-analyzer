@@ -1,1 +1,0 @@
-This is the default location for looking up for image by the function emo_path.
