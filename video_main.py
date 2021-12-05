@@ -53,9 +53,9 @@ class EmotionAnalysisVideo:
     ) -> None:
 
         # construct the path to emoji folder
-        emoji_path = os.path.join(emoji_loc, EmotionDetector.emoji_foldername)
+        self.emoji_path = os.path.join(emoji_loc, EmotionAnalysisVideo.emoji_foldername)
         # Load the emojis
-        self.emojis = self.load_emojis(emoji_path=emoji_path)
+        self.emojis = self.load_emojis(emoji_path=self.emoji_path)
 
         self.emotion_detector = EmotionDetector(
             model_loc=model_loc,
@@ -164,7 +164,7 @@ class EmotionAnalysisVideo:
 
 
     def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
-        emojis = []
+        emojis = {}
 
         # list of given emotions
         EMOTIONS = ['Angry', 'Disgusted', 'Fearful',
@@ -200,4 +200,5 @@ if __name__ == "__main__":
         output_path = "data/output.mp4",
         resize_scale = 0.5
     )
+
 

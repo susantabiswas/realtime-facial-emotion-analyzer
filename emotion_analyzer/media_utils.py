@@ -4,6 +4,7 @@
 # ===================================================
 """Description: Helper methods for media operations."""
 # ===================================================
+import decimal
 from typing import List, Tuple
 
 import cv2
@@ -113,14 +114,26 @@ def annotate_warning(warning_text: str, img):
     """
 
 
-def annotate_emotion_stats(emotion_data: Dict, img):
+def annotate_emotion_stats(emotion_data, img):
     """Draws a bar chart of emotion labels on top of image
 
     Args:
         emotion_data (Dict): Emotions and their respective prediction confidence
         img (numpy array): input image
     """
-    pass
+    for index, emotion in enumerate(emotion_data.keys()):
+        
+        # for drawing progress bar
+        cv2.rectangle(img, (100, index * 20 + 10), (100 +int(emotion_data[emotion]), (index + 1) * 20 + 4),
+                        (255, 0, 0), -1)
+        # for putting emotion labels
+        cv2.putText(img, emotion, (10, index * 20 + 20),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (7, 109, 16), 2)
+        
+        emotion_confidence = str(emotion_data[emotion]) + "%"
+        # for putting percentage confidence
+        cv2.putText(img, emotion_confidence, (105 + int(emotion_data[emotion]), index * 20 + 20),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
 
 
 def draw_emoji(emoji, img):
@@ -130,7 +143,12 @@ def draw_emoji(emoji, img):
         emoji (numpy array): emoji picture
         img (numpy array): input image
     """
-    pass
+    # overlay emoji on the frame for all the channels
+    for c in range(0, 3):
+        # for doing overlay we need to assign weights to both foreground and background
+        foreground = emoji[:, :, c] * (emoji[:, :, 3] / 255.0)
+        background = img[350:470, 10:130, c] * (1.0 - emoji[:, :, 3] / 255.0)
+        img[350:470, 10:130, c] = foreground + background
 
 
 def get_facial_ROI(image, bbox: List[int]):
