@@ -9,8 +9,8 @@ Usage: python -m emotion_analyzer.emotion_detector
 """
 # ===================================================
 import numpy as np
-from emotion_analyzer.emotion_detector import EmotionDetectorBase
-from emotion_analyzer.exceptions import InvalidImage, ModelFileMissing
+from emotion_analyzer.emotion_detector_base import EmotionDetectorBase
+from emotion_analyzer.exceptions import InvalidImage, ModelFileMissing, NoFaceDetected
 from emotion_analyzer.logger import LoggerFactory
 from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
 from emotion_analyzer.face_detection_mtcnn import FaceDetectorMTCNN
@@ -18,6 +18,7 @@ from emotion_analyzer.face_detection_opencv import FaceDetectorOpenCV
 import sys
 import os
 import dlib
+from emotion_analyzer.media_utils import get_facial_ROI
 from emotion_analyzer.model_utils import define_model, load_model_weights
 from emotion_analyzer.validators import is_valid_img, path_exists
 
@@ -74,18 +75,65 @@ class EmotionDetector(EmotionDetectorBase):
 
 
     def detect_emotion(self, img):
+        """Detects emotion from faces in an image
+
+            Img -> detect faces -> for each face: detect emotion
+        Args:
+            img (numpy matrix): input image
+
+        Raises:
+            InvalidImage: 
+            NoFaceDetected: 
+
+        Returns:
+            str: emotion label
+        """
         # Check if image is valid
         if not is_valid_img(img):
             raise InvalidImage
             
         image = img.copy()
-        
+
+        emotions = []        
+        try:
+            bboxes = self.face_detector.detect_faces(image=image)
+            if bboxes is None or len(bboxes) == 0:
+                raise NoFaceDetected
+            
+            for bbox in bboxes:
+                # extract the current face from image and run emotion detection
+                face = get_facial_ROI(image, bbox)
+                emotion = self.detect_facial_emotion(face)
+                facial_data = { "bbox": bbox, "emotion": emotion}
+                emotions.append(facial_data)
+        except Exception as excep:
+            raise excep
+
+        return emotions
+
+
+    def detect_facial_emotion(self, face) -> str:
+        if not is_valid_img(face):
+            raise InvalidImage
+
         # list of given emotions
         EMOTIONS = ['Angry', 'Disgusted', 'Fearful',
                     'Happy', 'Sad', 'Surprised', 'Neutral']
         
         # detect emotion
-        model_output = self.model.predict(image)
+        model_output = self.model.predict(face)
         emotion = EMOTIONS[np.argmax(model_output[0])]
 
+        print(model_output)
         return emotion
+
+
+if __name__ == "__main__":
+    from emotion_analyzer.media_utils import load_image_path
+
+    ob = EmotionDetector(
+        model_loc="models",
+        face_detector="dlib",
+    )
+    img1 = load_image_path("data/sample/1.jpg")
+    ob.detect_facial_emotion(img1)
