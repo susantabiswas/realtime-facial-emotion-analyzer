@@ -16,7 +16,9 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras import callbacks
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import MaxPool2D
-import os.path 
+import os.path
+
+from emotion_analyzer.exceptions import ModelFileMissing 
 
 
 def define_model():
@@ -83,3 +85,17 @@ def define_model():
     return model 
 
 
+def model_weights(model, model_path='./models/weights.h5'):
+    """Loads trained model weights from model file.
+
+    Args:
+        model (keras model): [Untrained model with init weights]
+
+    Returns:
+        [keras model]: [Model loaded with trained weights]
+    """
+    if os.path.exists(model_path):
+        model.load_weights(model_path)
+    else:
+        raise ModelFileMissing
+    return model
