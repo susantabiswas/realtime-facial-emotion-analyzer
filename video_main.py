@@ -151,7 +151,17 @@ class EmotionAnalysisVideo:
 
     def load_emojis(self, emoji_path:str = 'data//emoji') -> List:
         emojis = []
-        logger.info("Emojis loaded...")
+
+        # list of given emotions
+        EMOTIONS = ['Angry', 'Disgusted', 'Fearful',
+                    'Happy', 'Sad', 'Surprised', 'Neutral']
+
+        # store the emoji coreesponding to different emotions
+        for _, emotion in enumerate(EMOTIONS):
+            emoji_path = os.path.join(self.emoji_path, emotion.lower() + '.png')
+            emojis.append(cv2.imread(emoji_path, -1))
+
+        logger.info("Finished loading emojis...")
 
         return emojis
 
