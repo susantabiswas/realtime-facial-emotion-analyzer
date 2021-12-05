@@ -83,7 +83,7 @@ def draw_bounding_box(image, bbox: List[int], color: Tuple = (0, 255, 0)):
     return image
 
 
-def draw_annotation(image, label: str, bbox: List[int], color: Tuple = (0, 255, 0)):
+def draw_bounding_box_annotation(image, label: str, bbox: List[int], color: Tuple = (0, 255, 0)):
     """Used for drawing bounding box and label on an image
 
     Args:
@@ -103,6 +103,34 @@ def draw_annotation(image, label: str, bbox: List[int], color: Tuple = (0, 255, 
     font = cv2.FONT_HERSHEY_DUPLEX
     cv2.putText(image, label, (x1 + 6, y2 - 6), font, 0.6, (0, 0, 0), 2)
 
+
+def annotate_warning(warning_text, img):
+    """Draws warning text at the bottom of screen
+
+    Args:
+        warning_text (str): warning label
+        img (numpy array): input image
+    """
+
+
+def annotate_emotion_stats(emotion_data, img):
+    """Draws a bar chart of emotion labels on top of image
+
+    Args:
+        emotion_data (Dict): Emotions and their respective prediction confidence
+        img (numpy array): input image
+    """
+    pass
+
+
+def draw_emoji(emoji, img):
+    """Puts an emoji img on top of another image.
+
+    Args:
+        emoji (numpy array): emoji picture
+        img (numpy array): input image
+    """
+    pass
 
 def get_facial_ROI(image, bbox: List[int]):
     """Extracts the facial region in an image
