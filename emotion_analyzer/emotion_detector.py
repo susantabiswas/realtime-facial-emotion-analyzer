@@ -17,7 +17,9 @@ from emotion_analyzer.face_detection_mtcnn import FaceDetectorMTCNN
 from emotion_analyzer.face_detection_opencv import FaceDetectorOpenCV
 import sys
 import os
+import cv2
 import dlib
+from decimal import Decimal
 from emotion_analyzer.media_utils import get_facial_ROI
 from emotion_analyzer.model_utils import define_model, load_model_weights
 from emotion_analyzer.validators import is_valid_img, path_exists
@@ -58,7 +60,7 @@ class EmotionDetector(EmotionDetectorBase):
 
         # load emotion model
         self.model = define_model()
-        self.model = load_model_weights(model_weights_path)
+        self.model = load_model_weights(self.model, model_weights_path)
 
         # select and load face detection model
         if face_detector == "opencv":
@@ -103,9 +105,10 @@ class EmotionDetector(EmotionDetectorBase):
             for bbox in bboxes:
                 # extract the current face from image and run emotion detection
                 face = get_facial_ROI(image, bbox)
-                emotion = self.detect_facial_emotion(face)
-                facial_data = { "bbox": bbox, "emotion": emotion}
+                emotion, emotion_conf = self.detect_facial_emotion(face)
+                facial_data = { "bbox": bbox, "emotion": emotion, "confidence": emotion_conf}
                 emotions.append(facial_data)
+                
         except Exception as excep:
             raise excep
 
@@ -121,11 +124,24 @@ class EmotionDetector(EmotionDetectorBase):
                     'Happy', 'Sad', 'Surprised', 'Neutral']
         
         # detect emotion
+        # resize image for the model
+        face = cv2.resize(cv2.cvtColor(face, cv2.COLOR_BGR2GRAY), (48, 48))
+        face = np.reshape(face, (1, 48, 48, 1))
+        
         model_output = self.model.predict(face)
         emotion = EMOTIONS[np.argmax(model_output[0])]
 
-        print(model_output)
-        return emotion
+        # confidence for each emotion predication
+        emotion_confidence = {}
+        # Sum of all emotion confidence values
+        total_sum = np.sum(model_output[0])
+
+        for index, emotion in enumerate(EMOTIONS):
+            confidence = str(
+                round(Decimal(model_output[0][index] / total_sum * 100), 2) ) + "%"
+            emotion_confidence[emotion] = confidence
+
+        return emotion, emotion_confidence
 
 
 if __name__ == "__main__":
@@ -136,4 +152,8 @@ if __name__ == "__main__":
         face_detector="dlib",
     )
     img1 = load_image_path("data/sample/1.jpg")
-    ob.detect_facial_emotion(img1)
+    emotion, emotion_conf = ob.detect_facial_emotion(img1)
+    print(emotion_conf)
+
+    emotions = ob.detect_emotion(img1)
+    print(emotions)
