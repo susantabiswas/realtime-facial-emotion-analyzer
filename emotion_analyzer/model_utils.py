@@ -81,7 +81,7 @@ def define_model():
     return model 
 
 
-def model_weights(model, model_path='./models/weights.h5'):
+def load_model_weights(model, model_path='./models/weights.h5'):
     """Loads trained model weights from model file.
 
     Args:
