@@ -1,3 +1,10 @@
+# ---- coding: utf-8 ----
+# ===================================================
+# Author: Susanta Biswas
+# ===================================================
+"""Description: Tests for media utils."""
+# ===================================================
+
 from emotion_analyzer.exceptions import InvalidImage
 import pytest
 from emotion_analyzer.media_utils import (
