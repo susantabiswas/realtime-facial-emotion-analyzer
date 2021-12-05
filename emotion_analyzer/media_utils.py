@@ -112,6 +112,10 @@ def annotate_warning(warning_text: str, img):
         warning_text (str): warning label
         img (numpy array): input image
     """
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    h, w, _ = img.shape
+    x, y = 150, h - 50
+    cv2.putText(img, warning_text, (x, y), font, 0.7, (0, 0, 0), 2)
 
 
 def annotate_emotion_stats(emotion_data, img):

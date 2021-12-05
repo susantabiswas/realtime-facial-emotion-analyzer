@@ -153,7 +153,7 @@ class EmotionAnalysisVideo:
         # for just one person
         WARNING_TEXT = "Warning ! More than one person detected !"
 
-        if(len(emotion_data)):
+        if(len(emotion_data) > 0):
             annotate_warning(WARNING_TEXT, image)
 
         if(len(emotion_data) > 0):
