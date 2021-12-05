@@ -63,14 +63,6 @@ class EmotionAnalysisVideo:
             face_detection_threshold=face_detection_threshold,
             face_detector=face_detector,
         )
-        if face_detector == "opencv":
-            self.face_detector = FaceDetectorOpenCV(
-                model_loc=model_loc, crop_forehead=True, shrink_ratio=0.2
-            )
-        elif face_detector == "mtcnn":
-            self.face_detector = FaceDetectorMTCNN(crop_forehead=True, shrink_ratio=0.2)
-        elif face_detector == "dlib":
-            self.face_detector = FaceDetectorDlib()
 
     def emotion_analysis_video(
         self,
