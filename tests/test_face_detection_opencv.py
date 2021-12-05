@@ -15,8 +15,7 @@ def test_invalid_image():
 def test_bbox_outside_img():
     model_loc = "./models"
     ob = FaceDetectorOpenCV(model_loc=model_loc)
-    bbox = []
-
+    
     assert ob.is_valid_bbox([0, 0, 100, 100], 10, 10) == False
 
 
@@ -38,7 +37,6 @@ def test_incorrect_model_path():
     """
     Test object init with the incorrect model path
     """
-    ob = None
     inccorrect_model_loc = "./wrong_models"
     with pytest.raises(ModelFileMissing):
         _ = FaceDetectorOpenCV(model_loc=inccorrect_model_loc)
