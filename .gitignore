@@ -1,0 +1,8 @@
+**__pycache__
+.benchmark/
+.pytest_cache/
+**.log
+.coverage
+.idea
+**.mp4
+.vscode

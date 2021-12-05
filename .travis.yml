@@ -1,0 +1,24 @@
+language: python
+python:
+  - "3.9"
+
+# code climate 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+
+install:
+  - pip install -r requirements.txt
+
+# for codecoverage on codeclimate.com
+env:
+  global:
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - CODECLIMATE_REPO_TOKEN=[token]
+    - CC_TEST_REPORTER_ID=[id]
+
+script:
+  - python -m pytest --cov=./
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  
