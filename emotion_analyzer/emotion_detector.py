@@ -116,6 +116,18 @@ class EmotionDetector(EmotionDetectorBase):
 
 
     def detect_facial_emotion(self, face) -> str:
+        """Emotion detection on a assumed image of a facial region
+
+        Args:
+            face (numpy matrix): input image
+
+        Raises:
+            InvalidImage:
+
+        Returns:
+            emotion (str): detected emotion 
+            emotion_confidence (numpy array): prediction confidence of all the labels 
+        """
         if not is_valid_img(face):
             raise InvalidImage
 
