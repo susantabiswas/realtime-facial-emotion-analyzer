@@ -117,8 +117,6 @@ def annotate_warning(warning_text: str, img):
     font = cv2.FONT_HERSHEY_SIMPLEX
     h, _, _ = img.shape
     x, y = 150, h - 50
-    
-    #cv2.putText(img, warning_text, (x, y), font, 0.7, (0, 0, 0), 2)
 
     pil_img = Image.fromarray(img.copy())
     # truetype font
