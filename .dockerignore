@@ -1,3 +1,10 @@
-__pycache__
-.pytest_cache
-.git
+**__pycache__
+.benchmark/
+.pytest_cache/
+**.log
+.coverage
+.idea
+**.mp4
+.vscode
+data/media
+data/sample
