@@ -33,7 +33,7 @@ This emotion recognition library is built with ease and customization in mind. T
 ## Processed Images
 
 <img src="data/media/1.jpg" height="320" /><img src="data/media/2.jpg" height="320" />
-<img src="data/media/7.jpg" height="320" /><img src="data/media/8.jpg" height="320" />
+<img src="data/media/3.jpg" height="320" /><img src="data/media/4.jpg" height="320" />
 <img src="data/media/3.jpg" height="320" /><img src="data/media/4.jpg" height="320" />
 <img src="data/media/9.jpg" height="320" />
 <!-- <img src="data/media/5.jpg" height="320" /><img src="data/media/6.jpg" height="320" /> -->
