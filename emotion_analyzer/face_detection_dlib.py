@@ -14,7 +14,6 @@ import os
 import sys
 from typing import List
 
-import cv2
 import dlib
 
 from emotion_analyzer.exceptions import InvalidImage, ModelFileMissing

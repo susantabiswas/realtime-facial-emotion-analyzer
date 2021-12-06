@@ -15,7 +15,6 @@ Ref: https://github.com/ipazc/mtcnn
 import sys
 from typing import List
 
-import cv2
 from mtcnn import MTCNN
 
 from emotion_analyzer.exceptions import InvalidImage
