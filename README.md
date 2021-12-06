@@ -151,13 +151,25 @@ emotion_recognizer.emotion_analysis_video(
 )
 ```
 
-To register a face using an image on disk
+To analyze facial emotion using a video file
 ```python
 # Inside project root
 import video_main
 
-face_recognizer = FaceRecognitionVideo(face_detector='dlib')
-face_recognizer.register_face_path(img_path='data/sample/conan.jpg', name="Conan")
+# You can pick a face detector depending on Acc/speed requirements
+emotion_recognizer = EmotionAnalysisVideo(
+                        face_detector="dlib",
+                        model_loc="models",
+                        face_detection_threshold=0.0,
+                    )
+emotion_recognizer.emotion_analysis_video(
+    video_path='data/sample/test.mp4,
+    detection_interval=1,
+    save_output=False,
+    preview=True,
+    output_path="data/output.mp4",
+    resize_scale=0.5,
+)
 ```
 
 To register a face using a loaded image 
