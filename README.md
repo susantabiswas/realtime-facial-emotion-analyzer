@@ -1,13 +1,9 @@
 <!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsusantabiswas%2Frealtime-facial-emotion-analyzer&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/susantabiswas/FaceRecog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/susantabiswas/FaceRecog/context:python)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/8507a04fe1535a9c224a/maintainability)](https://codeclimate.com/github/susantabiswas/realtime-facial-emotion-analyzer/maintainability)
-
 ![Tests](https://github.com/susantabiswas/FaceRecog/workflows/Tests/badge.svg)
-
 [![Build Status](https://app.travis-ci.com/susantabiswas/realtime-facial-emotion-analyzer.svg?branch=master)](https://app.travis-ci.com/susantabiswas/realtime-facial-emotion-analyzer)
-
 [![codecov](https://codecov.io/gh/susantabiswas/realtime-facial-emotion-analyzer/branch/master/graph/badge.svg?token=O7CRXABZEA)](https://codecov.io/gh/susantabiswas/realtime-facial-emotion-analyzer)
 
 
@@ -42,20 +38,14 @@ This emotion recognition library is built with ease and customization in mind. T
 <img src="data/media/9.jpg" height="320" />
 <!-- <img src="data/media/5.jpg" height="320" /><img src="data/media/6.jpg" height="320" /> -->
 
+For emotion recognition, flow is:
 
-
-# Architecture
-![architecture](data/media/architecture.png)<br>
-
-For face recognition, flow is:
-
-    media -> frame -> face detection -> Facial ROI -> Neural Network -> 128D facial encoding 
+    media -> frame -> face detection -> Facial ROI -> Convolutional Neural Network -> Emotion 
 
 These are the major components:
 1. **Face Detection**: There are 4 different face detectors with different cropping options.
-2. **Face Recognition**: Responsible for handling facial recognition related functionalities like registering facial data etc. 
-3. **Storage**: The system provides abstract definitions of cache and persistent storage. For usage, a simple cache using python's native data structure is provided along side a persistent storage system with JSON. If needed the abstract classes can be extended to integrate better storage systems. 
-4. **Utilities**: Methods for handling image, video operations, validations, etc.
+2. **Emotion Recognition**: Responsible for handling emotion recognition related functionalities from an image.
+3. **Utilities**: Methods for handling image, video operations, validations, etc.
 
 <br>
 
@@ -63,13 +53,13 @@ These are the major components:
 There are multiple ways to set this up.
 ### Clone the repo and install dependencies.<br>
 ```python
-git clone https://github.com/susantabiswas/FaceRecog.git
+git clone https://github.com/susantabiswas/realtime-facial-emotion-analyzer.git
 pip install -r requirements.txt
 ```
 
 ### Docker Image
 You can pull the docker image for this project and run the code there.<br>
-```docker pull susantabiswas/face_recog:latest```
+```docker pull susantabiswas/emotion-analyzer:latest```
 
 ### Dockerfile
 You can build the docker image from the docker file present in the repo.
@@ -244,40 +234,5 @@ You can find more about MTCNN from here: https://github.com/ipazc/mtcnn
 Dataset used was from Kaggle fer2013 Challenge [Challenges in Representation Learning: Facial Expression Recognition Challenge](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
 <br>
 Emojis used were from https://emojiisland.com/
-
-
-[![HitCount](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer.svg)](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer)
-# Realtime Emotion Analysis from facial Expressions
-Realtime Human Emotion Analysis From facial expressions. It uses a deep Convolutional Neural Network.
-The model used achieved an accuracy of 63% on the test data. The realtime analyzer assigns a suitable emoji for the current emotion.
-
-Model implementation was done in keras.<br>
-
-## Some predicted outputs:
-<img src ='data/media/1.JPG'  width="430" height="380"><img src ='media/2.JPG'  width="430" height="380"/>
-
-<img src ='data/media/3.JPG'  width="430" height="380"><img src ='media/4.JPG'  width="430" height="380"/>
-
-### Emojis used:
-<img src="data/emojis/neutral.png" width="80" height="80">		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/happy.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/fearful.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/sad.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/angry.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/surprised.png" width="80" height="80">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="data/emojis/disgusted.png" width="80" height="80">
-
-### Snapshot from Realtime emotion Analyzer
-The model prediction for the given frame was **Neutral** which is evident from the picture.<br>
-<img src ='data/media/5.JPG' wdith="640" height="480"/>
-
-## <u>Model Architecture
-<img src ='data/media/model_plot.png' >
-  
-## <u>List of files
-`facial Emotions.ipynb` : 
-Jupyter notebook with well documented code explaining model preparation from start to training. Can be used for retraining the model.
-
-  
-## How to run
-Realtime emotion detection, for this run:<br>
-```python video_main.py```<br>
-
-
-## Credits
-- Dataset used was from Kaggle fer2013 Challenge [Challenges in Representation Learning: Facial Expression Recognition Challenge](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
-- Emojis used were from https://emojiisland.com/
+<br>
+Ubuntu font license: https://ubuntu.com/legal/font-licence
