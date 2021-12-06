@@ -1,4 +1,4 @@
-[![HitCount](http://hits.dwyl.io/susantabiswas/FaceRecog.svg)](http://hits.dwyl.io/susantabiswas/FaceRecog)
+<!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsusantabiswas%2Frealtime-facial-emotion-analyzer&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/susantabiswas/FaceRecog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/susantabiswas/FaceRecog/context:python)
 
@@ -12,12 +12,14 @@
 
 
 
-# Facial Recognition System
-This face recognition library is built with ease and customization in mind. There are numerous control parameters to control how you want to use the features, be it face detection, face recognition on videos, or with a webcam. 
-<br>
-At its core, the facial recognition system uses **Siamese Neural network**. Over the years there have been different architectures published and implemented. The library uses **dlib**'s face recognition model, which is inspired from **ResNet-34** network. The modified ResNet-34 has 29 Convolutional layers. The model achieved 99.38% accuracy on LFW dataset. 
+# Realtime Emotion Analysis from facial Expressions
+Real-time Human Emotion Analysis From facial expressions. It uses a deep Convolutional Neural Network.
+The model used achieved an accuracy of 63% on the test data. The realtime analyzer assigns a suitable emoji for the current emotion. 
 
 There are 4 different face detectors for usage. Wrappers for video and webcam processing are provided for convenience.<br><br>
+
+This emotion recognition library is built with ease and customization in mind. There are numerous control parameters to control how you want to use the features, be it face detection on videos, or with a webcam.
+<br>
 
 ## Table of Contents
 - [Sample Output](#sample-output)
@@ -77,43 +79,58 @@ You can build the docker image from the docker file present in the repo.
 
 # Project Structure
 ```
-FaceRecog/
+
+realtime-facial-emotion-analyzer/
 ├── Dockerfile
+├── LICENSE
 ├── README.md
-├── data/
-├── docs/
-├── face_recog/
-│   ├── exceptions.py
-│   ├── face_data_store.py
-│   ├── face_detection_dlib.py
-│   ├── face_detection_mtcnn.py
-│   ├── face_detection_opencv.py
-│   ├── face_detector.py
-│   ├── face_recognition.py
-│   ├── in_memory_cache.py
-│   ├── json_persistent_storage.py
-│   ├── logger.py
-│   ├── media_utils.py
-│   ├── persistent_storage.py
-│   ├── simple_cache.py
-│   └── validators.py
-├── models/
-│   ├── dlib_face_recognition_resnet_model_v1.dat
-│   ├── mmod_human_face_detector.dat
-│   ├── opencv_face_detector.pbtxt
-│   ├── opencv_face_detector_uint8.pb
-│   └── shape_predictor_5_face_landmarks.dat
+├── data
+│   ├── Ubuntu-R.ttf
+│   ├── emojis
+│   │   ├── angry.png
+│   │   ├── disgusted.png
+│   │   ├── fearful.png
+│   │   ├── happy.png
+│   │   ├── neutral.png
+│   │   ├── sad.png
+│   │   └── surprised.png
+│   ├── media
+│   │   ├── 1.JPG
+│   │   ├── 2.JPG
+│   │   ├── 3.JPG
+│   │   ├── 4.JPG
+│   │   └── model_plot.png
+│   └── sample
+│       ├── 1.jpg
+│       └── 2.jpg
+├── emotion_analyzer
+│   ├── emotion_detector.py
+│   ├── emotion_detector_base.py
+│   ├── exceptions.py
+│   ├── face_detection_dlib.py
+│   ├── face_detection_mtcnn.py
+│   ├── face_detection_opencv.py
+│   ├── face_detector.py
+│   ├── logger.py
+│   ├── media_utils.py
+│   ├── model_utils.py
+│   └── validators.py
+├── models
+│   ├── mmod_human_face_detector.dat
+│   ├── opencv_face_detector.pbtxt
+│   ├── opencv_face_detector_uint8.pb
+│   └── shape_predictor_5_face_landmarks.dat
 ├── requirements.txt
-├── tests/
-│   ├── conftest.py
-│   ├── test_face_data_store.py
-│   ├── test_face_detection_dlib.py
-│   ├── test_face_detection_mtcnn.py
-│   ├── test_face_detection_opencv.py
-│   ├── test_face_recognition.py
-│   ├── test_json_persistent_storage.py
-│   ├── test_media_utils.py
-│   └── test_simple_cache.py
+├── tests
+│   ├── conftest.py
+│   ├── test_face_detection_dlib.py
+│   ├── test_face_detection_mtcnn.py
+│   ├── test_face_detection_opencv.py
+│   └── test_media_utils.py
+├── training
+│   ├── data_prep.py
+│   ├── facial Emotions.ipynb
+│   └── preprocess.py
 └── video_main.py
 ```
 
@@ -223,7 +240,10 @@ The awesome work Davis E. King has done:
 http://dlib.net/cnn_face_detector.py.html, 
 https://github.com/davisking/dlib-models<br>
 You can find more about MTCNN from here: https://github.com/ipazc/mtcnn
-
+<br>
+Dataset used was from Kaggle fer2013 Challenge [Challenges in Representation Learning: Facial Expression Recognition Challenge](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
+<br>
+Emojis used were from https://emojiisland.com/
 
 
 [![HitCount](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer.svg)](http://hits.dwyl.io/susantabiswas/facial-emotion-analyzer)
