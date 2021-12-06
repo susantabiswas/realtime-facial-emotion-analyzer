@@ -123,7 +123,7 @@ class EmotionAnalysisVideo:
                     key = cv2.waitKey(1) & 0xFF
                     if key == ord("q"):
                         break
-
+                
                 except Exception as exc:
                     raise exc
                 frame_num += 1
@@ -139,6 +139,7 @@ class EmotionAnalysisVideo:
             cv2.destroyAllWindows()
             cap.release()
             video_writer.release()
+
 
     def load_emojis(self, emoji_path: str = "data//emoji") -> List:
         emojis = {}
@@ -163,6 +164,7 @@ class EmotionAnalysisVideo:
 
         return emojis
 
+
     def annotate_emotion_data(
         self, emotion_data: List[Dict], image, resize_scale: float
     ) -> None:
@@ -178,7 +180,7 @@ class EmotionAnalysisVideo:
         # for just one person
         WARNING_TEXT = "Warning ! More than one person detected !"
 
-        if len(emotion_data) > 0:
+        if len(emotion_data) > 1:
             image = annotate_warning(WARNING_TEXT, image)
 
         if len(emotion_data) > 0:
@@ -186,7 +188,7 @@ class EmotionAnalysisVideo:
             image = annotate_emotion_stats(emotion_data[0]["confidence_scores"], image)
             # draw the emoji corresponding to the emotion
             image = draw_emoji(self.emojis[emotion_data[0]["emotion"]], image)
-
+            
         return image
 
 
@@ -204,10 +206,10 @@ if __name__ == "__main__":
 
     img1 = load_image_path("data/sample/1.jpg")
     ob.emotion_analysis_video(
-        video_path=None,
+        video_path="data/sample/test3.mp4",
         detection_interval=1,
-        save_output=False,
-        preview=True,
+        save_output=True,
+        preview=False,
         output_path="data/output.mp4",
         resize_scale=0.5,
     )
