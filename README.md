@@ -130,7 +130,7 @@ realtime-facial-emotion-analyzer/
 Depending on the use case, whether to aim for accuracy and stability or speed etc., you can pick the face detector. Also, there are customization options inside face detectors to decide the facial ROI.
 
 
-To analyze facial emotion using a webcam
+### To analyze facial emotion using a webcam
 ```python
 # Inside project root
 import video_main
@@ -151,7 +151,7 @@ emotion_recognizer.emotion_analysis_video(
 )
 ```
 
-To analyze facial emotion using a video file
+### To analyze facial emotion using a video file
 ```python
 # Inside project root
 import video_main
@@ -163,7 +163,7 @@ emotion_recognizer = EmotionAnalysisVideo(
                         face_detection_threshold=0.0,
                     )
 emotion_recognizer.emotion_analysis_video(
-    video_path='data/sample/test.mp4,
+    video_path='data/sample/test.mp4',
     detection_interval=1,
     save_output=False,
     preview=True,
@@ -172,62 +172,20 @@ emotion_recognizer.emotion_analysis_video(
 )
 ```
 
-To register a face using a loaded image 
+### Emotion recognition using an image
 ```python
 # Inside project root
-from face_recog.media_utils import load_image_path
-from face_recog.face_recognition import FaceRecognition
+from emotion_analyzer.media_utils import load_image_path
+from emotion_analyzer.emotion_detector import EmotionDetector
 
-face_recognizer = FaceRecognition(
-                    model_loc="models",
-                    persistent_data_loc="data/facial_data.json",
-                    face_detector="dlib",
-                )
+emotion_detector = EmotionDetector(
+    model_loc="models",
+    face_detection_threshold=0.8,
+    face_detector="dlib",
+)
+# Load the test image
 img = load_image_path("data/sample/1.jpg")
-# Matches is a list containing information about the matches
-# for each of the faces in the image
-matches = face_recognizer.register_face(image=img, name=name)
-```
-
-Face recognition with a webcam feed
-```python
-# Inside project root
-import video_main
-
-face_recognizer = FaceRecognitionVideo(face_detector='dlib')
-face_recognizer.recognize_face_video(video_path=None, \
-                                    detection_interval=2, save_output=True, \
-                                    preview=True, resize_scale=0.25)
-```
-
-Face recognition on a video
-```python
-# Inside project root
-import video_main
-
-face_recognizer = FaceRecognitionVideo(face_detector='dlib')
-face_recognizer.recognize_face_video(video_path='data/trimmed.mp4', \
-                                    detection_interval=2, save_output=True, \
-                                    preview=True, resize_scale=0.25)
-```
-
-Face recognition using an image
-```python
-# Inside project root
-from face_recog.media_utils import load_image_path
-from face_recog.face_recognition import FaceRecognition
-
-face_recognizer = FaceRecognition(
-                    model_loc="models",
-                    persistent_data_loc="data/facial_data.json",
-                    face_detector="dlib",
-                )
-img = load_image_path("data/sample/1.jpg")
-# Matches is a list containing information about the matches
-# for each of the faces in the image
-matches = face_recognizer.recognize_faces(
-                image=img, threshold=0.6
-            )
+emotion, emotion_conf = emotion_detector.detect_facial_emotion(img)
 ```
 
 
@@ -236,8 +194,8 @@ All the face detectors are based on a common abstract class and have a common de
 
 ```python
 # import the face detector you want, it follows absolute imports
-from face_recog.media_utils import load_image_path
-from face_recog.face_detection_dlib import FaceDetectorDlib
+from emotion_analyzer.media_utils import load_image_path
+from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
 
 face_detector = FaceDetectorDlib(model_type="hog")
 # Load the image in RGB format
