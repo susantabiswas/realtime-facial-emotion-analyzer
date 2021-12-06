@@ -34,8 +34,8 @@ This emotion recognition library is built with ease and customization in mind. T
 
 <img src="data/media/1.jpg" height="320" /><img src="data/media/2.jpg" height="320" />
 <img src="data/media/3.jpg" height="320" /><img src="data/media/4.jpg" height="320" />
-<img src="data/media/3.jpg" height="320" /><img src="data/media/4.jpg" height="320" />
-<img src="data/media/9.jpg" height="320" />
+<img src="data/media/out3.jpg" height="320" /><img src="data/media/out4.jpg" height="320" />
+<img src="data/media/out5.jpg" height="320" /><img src="data/media/out6.jpg" height="320" />
 <!-- <img src="data/media/5.jpg" height="320" /><img src="data/media/6.jpg" height="320" /> -->
 
 For emotion recognition, flow is:
