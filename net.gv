@@ -1,0 +1,28 @@
+digraph g {
+	graph [nodesep=1 ranksep=2 splines=false]
+	edge [arrowhead=none color="#707070"]
+	subgraph cluster_input {
+		node [fillcolor="black:white" fontcolor=white shape=square style=filled]
+		color=white label="My first neural network
+
+
+
+Input Layer"
+		1 [label="Image
+ 48 x 48 pixels
+Grayscale" fontcolor=white]
+	}
+	conv_2 -> 2
+	1 -> conv_2
+	subgraph cluster_1 {
+		color="#5faad0" style=filled
+		conv_2 [label="Convolutional Layer
+Kernel Size: 3x3
+Filters: 32" shape=square]
+		2 [label="32
+Feature Maps" shape=square]
+	}
+	subgraph cluster_output {
+	}
+	arrowShape=none
+}

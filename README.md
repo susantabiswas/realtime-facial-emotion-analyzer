@@ -126,18 +126,29 @@ realtime-facial-emotion-analyzer/
 
 # Usage
 
-### Face Recognition
+### Emotion Recognition
 Depending on the use case, whether to aim for accuracy and stability or speed etc., you can pick the face detector. Also, there are customization options inside face detectors to decide the facial ROI.
 
 
-To register a face using a webcam
+To analyze facial emotion using a webcam
 ```python
 # Inside project root
 import video_main
 
 # You can pick a face detector depending on Acc/speed requirements
-face_recognizer = FaceRecognitionVideo(face_detector='dlib')
-face_recognizer.register_face_webcam(name="Susanta")
+emotion_recognizer = EmotionAnalysisVideo(
+                        face_detector="dlib",
+                        model_loc="models",
+                        face_detection_threshold=0.0,
+                    )
+emotion_recognizer.emotion_analysis_video(
+    video_path=None,
+    detection_interval=1,
+    save_output=False,
+    preview=True,
+    output_path="data/output.mp4",
+    resize_scale=0.5,
+)
 ```
 
 To register a face using an image on disk
@@ -224,6 +235,9 @@ bboxes = face_detector.detect_faces(image)
 ```
 
 
+# Architecture
+![architecture](data/media/model_plot.png)<br>
+<br>
 
 # References
 The awesome work Davis E. King has done: 
