@@ -1,6 +1,6 @@
 <!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsusantabiswas%2Frealtime-facial-emotion-analyzer&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/susantabiswas/FaceRecog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/susantabiswas/FaceRecog/context:python)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/susantabiswas/realtime-facial-emotion-analyzer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/susantabiswas/realtime-facial-emotion-analyzer/context:python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8507a04fe1535a9c224a/maintainability)](https://codeclimate.com/github/susantabiswas/realtime-facial-emotion-analyzer/maintainability)
 ![Tests](https://github.com/susantabiswas/FaceRecog/workflows/Tests/badge.svg)
 [![Build Status](https://app.travis-ci.com/susantabiswas/realtime-facial-emotion-analyzer.svg?branch=master)](https://app.travis-ci.com/susantabiswas/realtime-facial-emotion-analyzer)
